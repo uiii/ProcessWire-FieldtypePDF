@@ -2,12 +2,12 @@
 
 Module for ProcessWire allowing you to easily generate thumbnails of the PDF files embedded to the site.
 
-# Installation
+## Installation
 
 Place the files in /site/modules/InputfieldPDF and install the InputfieldPDF module.  
 [How to install or uninstall modules](http://modules.processwire.com/install-uninstall/).
 
-# How to use
+## How to use
 
 ### In site's administration
 
