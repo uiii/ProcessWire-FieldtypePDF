@@ -1,0 +1,74 @@
+<?php
+
+/**
+ * ProcessWire File Fieldtype
+ *
+ * Field that stores one or more files with optional description. 
+ *
+ * For documentation about the fields used in this class, please see:  
+ * /wire/core/Fieldtype.php
+ * /wire/core/FieldtypeMulti.php
+ * 
+ * ProcessWire 2.x 
+ * Copyright (C) 2013 by Ryan Cramer 
+ * Licensed under GNU/GPL v2, see LICENSE.TXT
+ * 
+ * http://processwire.com
+ *
+ */
+
+require_once(dirname(__FILE__) . "/PagePDF.php");
+require_once(dirname(__FILE__) . "/PagePDFs.php");
+
+class FieldtypePDF extends FieldtypeFile {
+
+	public static function getModuleInfo() {
+		return array(
+			'title' => __('PDF with thumbnail', __FILE__),
+			'version' => 100,
+			'summary' => __('Field that stores one or more pdf files with thumbnails', __FILE__),
+            'author' => 'Richard Jedlička',
+            'installs' => 'InputfieldPDF'
+			);
+	}
+
+	public function getBlankValue(Page $page, Field $field) {
+		$pagePDFs = new PagePDFs($page);
+		$pagePDFs->setField($field); 
+		$pagePDFs->setTrackChanges(true); 
+		return $pagePDFs; 
+	}
+
+	/**
+ 	 * Returns a blank Pagefile instance, which may be another type of Pagefile (i.e. a Pageimage)
+	 *
+	 * This method ensures that the correct type of items are populated by wakeupValue()
+	 *
+	 * @param Pagefiles $pagefiles
+	 * @param string $filename
+	 * @return Pagefile 
+	 *
+	 */
+	protected function getBlankPagefile(Pagefiles $pagefiles, $filename) {
+		return new PagePDF($pagefiles, $filename); 
+	}
+
+	/**
+	 * Default list of file extensions supported by this field, and used as the default by getConfigInputfields() method. 
+	 *
+	 * Subclasses can override with their own string of file extensions
+	 *
+	 */
+	protected function getDefaultFileExtensions() {
+		return "pdf";
+	}
+
+	public function ___getConfigInputfields(Field $field) {
+		$inputfields = parent::___getConfigInputfields($field);
+
+        $inputfields->remove($inputfields->get('extensions'));
+
+        return $inputfields;
+    }
+}
+
