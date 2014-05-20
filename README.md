@@ -1,10 +1,10 @@
-# PDF Inputfield/Fieldtype
+# PDF Fieldtype/Inputfield
 
 Module for ProcessWire allowing you to easily generate thumbnails of the PDF files embedded to the site.
 
 ## Installation
 
-Place the files in /site/modules/InputfieldPDF and install the InputfieldPDF module.  
+Place the files in /site/modules/FieldtypePDF and install the FieldtypePDF module.  
 [How to install or uninstall modules](http://modules.processwire.com/install-uninstall/).
 
 ## How to use
