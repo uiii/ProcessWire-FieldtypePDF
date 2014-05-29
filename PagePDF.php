@@ -25,6 +25,8 @@ class PagePDF extends Pagefile {
 		if(! is_file($filename)) {
             $imagick = new Imagick();
             $imagick->setResolution(300, 300);
+            $imagick->setOption('pdf:use-cropbox', 'true');
+            $imagick->setColorspace(Imagick::COLORSPACE_RGB);
             $imagick->readimage($this->filename . "[0]");
             $imagick->setImageFormat('png');
             $imagick->scaleImage($width, $height);

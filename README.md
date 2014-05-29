@@ -30,3 +30,9 @@ $page->pdfFile->thumbnail(width, height)
 If you set one of the dimensions to `0` it will be computed automaticaly preserving the aspect ratio.
 
 The generated image is saved in page's assets, so it will be **created only once**. The thumbnail is the instance of `PageImage`, so you can do with it whatever you can do with image fields. When you delete the PDF file the thumbnails are deleted too.
+
+## Notes
+
+In some cases, the thumbnail's colors might not match the colors in PDF. To fix that, you need to made some changes in ImageMagick delegate files.
+
+Detailed instructions can be found here: http://www.lassosoft.com/CMYK-Colour-Matching-with-ImageMagick
