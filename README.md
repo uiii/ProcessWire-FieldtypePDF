@@ -2,6 +2,12 @@
 
 Module for ProcessWire allowing you to easily generate thumbnails of the PDF files embedded to the site.
 
+## Requirements
+
+- Processwire 2.4
+- ImageMagick PHP extension
+- Ghostscript
+
 ## Installation
 
 Place the files in /site/modules/FieldtypePDF and install the FieldtypePDF module.  

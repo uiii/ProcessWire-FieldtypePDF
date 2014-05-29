@@ -24,13 +24,20 @@ class FieldtypePDF extends FieldtypeFile {
 
 	public static function getModuleInfo() {
 		return array(
-			'title' => __('PDF with thumbnail', __FILE__),
 			'version' => 100,
-			'summary' => __('Field that stores one or more pdf files with thumbnails', __FILE__),
+			'title' => __('PDF with thumbnail', __FILE__),
+			'summary' => __('Field that stores one or more pdf files allowing thumbnail creation.', __FILE__),
+            'href' => 'https://github.com/uiii/ProcessWire-FieldtypePDF',
             'author' => 'Richard Jedlička',
             'installs' => 'InputfieldPDF'
 			);
 	}
+
+    public function ___install() {
+        if(! class_exists('Imagick')) {
+            throw new WireException(__("FieldtypePDF module requires the ImageMagick PHP extension."));
+        }
+    }
 
 	public function getBlankValue(Page $page, Field $field) {
 		$pagePDFs = new PagePDFs($page);
