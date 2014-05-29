@@ -1,18 +1,5 @@
 <?php
 
-/**
- * ProcessWire PagePDF
- *
- * Represents a single PDF file item attached to a page, typically via a FieldtypePDF field.
- * 
- * ProcessWire 2.x 
- * Copyright (C) 2013 by Ryan Cramer 
- * Licensed under GNU/GPL v2, see LICENSE.TXT
- * 
- * http://processwire.com
- *
- */
-
 class PagePDF extends Pagefile {
 
     private $thumbnails = null;
@@ -68,22 +55,11 @@ class PagePDF extends Pagefile {
     }
 
 
-	/**
-	 * Delete the physical file on disk, associated with this PagePDF
-	 *
-	 */
 	public function unlink() {
         @$this->removeThumbnails();
         return parent::unlink();
 	}
 
-	/**
-	 * Rename this file to $basename
-	 *
- 	 * @param string $basename
-	 * @return string|bool Returns basename on success, or boolean false if rename failed
-	 *
-	 */
 	public function rename($basename) {
 		$basename = $this->pagefiles->cleanBasename($basename, true); 
 		if(rename($this->filename, $this->pagefiles->path . $basename)) {
@@ -94,12 +70,6 @@ class PagePDF extends Pagefile {
 		return false; 
 	}
 
-	/**
-	 * Implement the hook that is called when a property changes (from Wire)
-	 *
-	 * Alert the $pagefiles of the change 
-	 *
-	 */
 	public function ___changed($what) {
 		if($what == 'file') {
             @$this->removeThumbnails();
