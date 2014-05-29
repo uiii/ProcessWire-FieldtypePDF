@@ -27,7 +27,7 @@ class FieldtypePDF extends FieldtypeFile {
 			'version' => 100,
 			'title' => __('PDF with thumbnail', __FILE__),
 			'summary' => __('Field that stores one or more pdf files allowing thumbnail creation.', __FILE__),
-            'href' => 'https://github.com/uiii/ProcessWire-FieldtypePDF',
+            'href' => 'http://modules.processwire.com/modules/fieldtype-pdf',
             'author' => 'Richard Jedlička',
             'installs' => 'InputfieldPDF'
 			);

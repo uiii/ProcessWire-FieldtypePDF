@@ -7,7 +7,7 @@ class InputfieldPDF extends InputfieldFile implements InputfieldItemList {
 			'version' => 100,
 			'title' => __('PDF files with thumbnails', __FILE__), // Module Title
 			'summary' => __('One or more pdf files upload with thumbnails', __FILE__), // Module Summary
-            'href' => 'https://github.com/uiii/ProcessWire-FieldtypePDF',
+            'href' => 'http://modules.processwire.com/modules/fieldtype-pdf',
             'author' => "Richard Jedlička",
             'requires' => array("FieldtypePDF")
 			);
