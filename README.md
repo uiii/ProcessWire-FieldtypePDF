@@ -33,7 +33,6 @@ You can also specify PDF's page number as the first parameter of `toImage($page)
 
 ## API documentation
 
-TODO
 See http://uiii.github.io/ProcessWire-FieldtypePDF. 
 
 Or generate your own into *doc* directory:
