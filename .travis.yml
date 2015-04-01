@@ -15,6 +15,6 @@ script:
     - echo "TODO testing"
 
 after_success:
-    - wget https://gist.githubusercontent.com/uiii/1fc5373c6f58ba29fb33/raw/40a8bf499e15910652c3f33aa9a0e413154f4b71/generate-api.sh
+    - wget https://gist.githubusercontent.com/uiii/1fc5373c6f58ba29fb33/raw/generate-api.sh
     - sh generate-api.sh
 
