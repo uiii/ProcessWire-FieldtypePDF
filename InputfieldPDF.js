@@ -17,9 +17,9 @@ $(document).ready(function() {
 		}
 	}; 
 
-	//$("a.InputfieldFileLink").magnificPopup(magnificOptions);
+	$("a.InputfieldFileLink").magnificPopup(magnificOptions);
 
-	$(document).on('click', '.InputfieldImage .InputfieldFileMove', function() {
+	$(document).on('click', '.InputfieldPDF .InputfieldFileMove', function() {
 
 		var $li = $(this).parent('p').parent('li'); 
 		var $ul = $li.parent();
@@ -33,14 +33,17 @@ $(document).ready(function() {
 
 		return false;
 	}); 
+	
+	function setGridModeItem($a) {
+		var $img = $a.children("img");
+		$a.css('background', '#000 url(' + $img.attr('src') + ') center center no-repeat');
+		if($img.width() > 99 && $img.height() > 99) $a.css('background-size', 'cover'); 
+	}
 
 	function setGridMode($parent) {
 		$parent.find("i.fa-th").replaceWith($("<i class='fa fa-list'></i>")); 
 		$parent.find(".InputfieldFileLink").each(function() {
-			var $a = $(this);
-			var $img = $a.children("img"); 
-			$a.css('background', '#000 url(' + $img.attr('src') + ') center center no-repeat'); 
-			if($img.width() > 99 && $img.height() > 99) $a.css('background-size', 'cover'); 
+			setGridModeItem($(this));
 		}); 
 		$parent.addClass('InputfieldImageGrid'); 
 	}
@@ -51,24 +54,27 @@ $(document).ready(function() {
 		$parent.find("i.fa-list").replaceWith($("<i class='fa fa-th'></i>")); 
 	}
 
-	var $listToggle = $("<a class='InputfieldImageListToggle HideIfSingle HideIfEmpty' href='#'></a>")
+	var $listToggle = $("<a class='InputfieldImageListToggle HideIfEmpty' href='#'></a>")
 		.append("<i class='fa fa-th'></i>"); 
-	$(".InputfieldImage .InputfieldHeader").append($listToggle); 
+	$(".InputfieldPDF .InputfieldHeader").append($listToggle); 
 	$(document).on('click', '.InputfieldImageListToggle', function() {
-		var $parent = $(this).parents(".InputfieldImage"); 
+		var $parent = $(this).parents(".InputfieldPDF"); 
 		if($parent.hasClass('InputfieldImageGrid')) unsetGridMode($parent);
 			else setGridMode($parent);
 		return false; 
 	}); 
 
-	$(".InputfieldImage").find(".InputfieldImageDefaultGrid").each(function() {
-		setGridMode($(this).parents(".InputfieldImage")); 
+	$(".InputfieldPDF").find(".InputfieldImageDefaultGrid").each(function() {
+		setGridMode($(this).parents(".InputfieldPDF")); 
 	}); 
 
-	$(document).on('AjaxUploadDone', '.InputfieldImage .InputfieldFileList', function() {
+	$(document).on('AjaxUploadDone', '.InputfieldPDF .InputfieldFileList', function() {
 		$("a.InputfieldFileLink", $(this)).magnificPopup(magnificOptions); 
-		var $parent = $(this).parents('.InputfieldImage'); 
-		if($parent.is(".InputfieldImageGrid")) setGridMode($parent);
+		var $parent = $(this).parents('.InputfieldPDF'); 
+		if($parent.is(".InputfieldImageGrid")) {
+			unsetGridMode($parent);
+			setGridMode($parent);
+		}
 	}); 
 
 });

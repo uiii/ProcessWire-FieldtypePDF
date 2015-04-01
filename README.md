@@ -4,13 +4,12 @@ Module for ProcessWire allowing you to easily generate thumbnails of the PDF fil
 
 ## Requirements
 
-- Processwire 2.4
+- Processwire 2.4+
 - ImageMagick PHP extension
 - Ghostscript
 
 ## Installation
 
-Place the files in /site/modules/FieldtypePDF and install the FieldtypePDF module.  
 [How to install or uninstall modules](http://modules.processwire.com/install-uninstall/).
 
 ## How to use
@@ -21,15 +20,24 @@ Add a field and set its type to `PDF`.
 Use the field the same way as the file field (obviously, this accepts only \*.pdf files).
 After the file is uploaded you will see a small thumbnail of it.
 
+Image generation is highly configurable (image format, extension, background, ...). See the *PDF to image converter* section on field's *Details* tab.
+
 ### In templates
 
-The PDF field type extends file field and adds new method to generate the thumbnail image of the PDF with the size of *width* x *height* in pixels.
+The PDF field type extends file field and adds new method to generate the image from PDF.
 ```php
-$page->pdfFile->thumbnail(width, height)
+$image = $page->pdfFile->toImage();
+$image->size(100, 100);
 ```
-If you set one of the dimensions to `0` it will be computed automaticaly preserving the aspect ratio.
+You can also specify PDF's page number as the first parameter of `toImage($page)`, default is 0. The generated image is saved in page's assets, so it will be **created only once**. The image is the instance of `Pageimage`, so you can do with it whatever you can do with image fields. When you delete the PDF file the generated images are deleted too.
 
-The generated image is saved in page's assets, so it will be **created only once**. The thumbnail is the instance of `PageImage`, so you can do with it whatever you can do with image fields. When you delete the PDF file the thumbnails are deleted too.
+## API documentation
+
+TODO
+
+## Tests
+
+TODO
 
 ## Notes
 
@@ -38,6 +46,16 @@ In some cases, the thumbnail's colors might not match the colors in PDF. To fix 
 Detailed instructions can be found here: http://www.lassosoft.com/CMYK-Colour-Matching-with-ImageMagick
 
 ## Changelog
+
+### 1.1.0
+
+- API change: New method `toImage`. Previous `thumbnail` and related methods are marked as **deprecated**
+- PDF to image converter is now configurable in admin [issue [#7](https://github.com/uiii/ProcessWire-FieldtypePDF/issues/7)]
+- You can specify which page of the PDF's the image is generated from [issue [#3](https://github.com/uiii/ProcessWire-FieldtypePDF/issues/3)]
+- Fix bugs [issue [#4](https://github.com/uiii/ProcessWire-FieldtypePDF/issues/4), [#6](https://github.com/uiii/ProcessWire-FieldtypePDF/issues/6)]
+- Add ApiGen config for API documentation generation
+- Add PHPUnit tests
+- Add license (MIT)
 
 ### 1.0.1
 

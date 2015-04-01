@@ -1,0 +1,6 @@
+source: .
+destination: doc
+title: FieldtypePDF
+deprecated: true
+extensions: [php, module]
+exclude: [doc, test, vendor]

@@ -1,18 +1,19 @@
-.InputfieldImage img {
+.InputfieldPDF img {
 	max-width: 90%; 
 }
 
-.InputfieldImage a.InputfieldFileLink + label.InputfieldFileDescription,
-.InputfieldImage a.InputfieldFileLink + label.InputfieldFileTags {
+.InputfieldPDF a.InputfieldFileLink + label.InputfieldFileDescription,
+.InputfieldPDF a.InputfieldFileLink + label.InputfieldFileTags {
 	margin-top: 0.5em;
 }
 
-.InputfieldImage a.InputfieldFileMove span.ui-icon {
+.InputfieldPDF a.InputfieldFileMove span.ui-icon {
 	float: right; 
 	position: relative; 
 	top: 2px; 
 }
-.InputfieldImage a.InputfieldFileMove {
+.InputfieldPDF a.InputfieldFileMove {
+	float: right;
 	width: 20px; 
 	padding-right: 20px; 
 	visibility: hidden; 
@@ -30,8 +31,8 @@
  * Grid mode
  *
  */
-.InputfieldImage .InputfieldHeader i.icon-th, 
-.InputfieldImage .InputfieldHeader i.icon-list {
+.InputfieldPDF .InputfieldHeader i.icon-th, 
+.InputfieldPDF .InputfieldHeader i.icon-list {
 	font-size: 14px; 
 }
 
@@ -54,6 +55,11 @@
 	display: none; 
 }
 
+.InputfieldImageGrid .InputfieldFileList .langTabsContainer,
+.InputfieldImageGrid .InputfieldFileList .InputfieldFileDescription,
+.InputfieldImageGrid .InputfieldFileList .InputfieldFileTags {
+	display: none !important; 
+}
 
 .InputfieldImageGrid .InputfieldFileList .InputfieldImage,
 .InputfieldImageGrid .InputfieldFileList .InputfieldFileData {
@@ -93,7 +99,7 @@
 	
 }
 
-.InputfieldImage .InputfieldHeader .InputfieldImageListToggle {
+.InputfieldPDF .InputfieldHeader .InputfieldImageListToggle {
 	float: right;
 	padding-right: 1em; 
 	position: relative;

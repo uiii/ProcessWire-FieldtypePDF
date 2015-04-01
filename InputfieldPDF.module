@@ -1,59 +1,75 @@
 <?php
 
-class InputfieldPDF extends InputfieldFile implements InputfieldItemList {
+use FieldtypePDF\PagePDF;
 
-	public static function getModuleInfo() {
+/*
+ * The MIT License
+ *
+ * Copyright 2015 Richard Jedlička <jedlicka.r@gmail.com> (http://uiii.cz)
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+class InputfieldPDF extends InputfieldImage implements InputfieldItemList
+{
+	public static function getModuleInfo()
+	{
 		return array(
-			'version' => 101,
+			'version' => 110,
 			'title' => __('PDF files with thumbnails', __FILE__), // Module Title
 			'summary' => __('One or more pdf files upload with thumbnails', __FILE__), // Module Summary
-            'href' => 'http://modules.processwire.com/modules/fieldtype-pdf',
-            'author' => "Richard Jedlička",
-            'requires' => array("FieldtypePDF")
-			);
+			'href' => 'http://modules.processwire.com/modules/fieldtype-pdf',
+			'author' => "Richard Jedlička",
+			'requires' => array("FieldtypePDF")
+		);
 	}
 
-	public function init() {
+	public function init()
+	{
 		parent::init();
 		$this->set('extensions', 'PDF');
-		$this->set('adminThumbHeight', 100); 
-		$this->set('itemClass', 'InputfieldFileItem InputfieldImage ui-widget'); 
-		//$this->modules->get("InputfieldFile"); // force the JS and CSS from InputfieldFile to also be loaded
 	}
 
-	public function ___render() {
-		$this->modules->getInstall("JqueryMagnific"); 
-		$this->config->scripts->add($this->config->urls->InputfieldFile . "InputfieldFile.js");
-		$this->config->styles->add($this->config->urls->InputfieldFile . "InputfieldFile.css");
-		$out = parent::___render();
-		return $out; 
+	protected function ___fileAdded(Pagefile $pagefile)
+	{
+		// skip image resizing from InputfieldImage
+		return InputfieldFile::___fileAdded($pagefile);
 	}
 
-	protected function ___renderItem($pagefile, $id, $n) {
-		$thumb = $pagefile->thumbnail(0, $this->adminThumbHeight); 
-		$thumbBig = $pagefile->thumbnail(1024); 
+	protected function ___renderItem($pagefile, $id, $n)
+	{
+		if ($pagefile instanceof PagePDF) {
+			$pagefile = $pagefile->toImage(); 
+		}
 
-		$out = 	"\n\t\t<p class='InputfieldFileInfo InputfieldItemHeader ui-widget ui-widget-header'>" . 
-			"\n\t\t\t<span class='ui-icon ui-icon-arrowthick-2-n-s HideIfSingle'></span>" .
-			"\n\t\t\t<span class='ui-icon ui-icon-arrowthick-1-e HideIfMultiple'></span>" . 
-			"\n\t\t\t<span class='InputfieldFileName'>{$pagefile->basename}</span> " . 
-			"\n\t\t\t<span class='InputfieldFileStats'>&bull; {$pagefile->filesizeStr} &bull;</span> " . 
-			"\n\t\t\t<label class='InputfieldFileDelete'><input type='checkbox' name='delete_$id' value='1' /><span class='ui-icon ui-icon-trash'>Delete</span></label>" . 
-			"\n\t\t\t<a class='InputfieldFileMove InputfieldFileMoveBottom' href='#'><span class='ui-icon ui-icon-arrowthickstop-1-s'></span></a> " . 
-			"\n\t\t\t<a class='InputfieldFileMove InputfieldFileMoveTop' href='#'><span class='ui-icon ui-icon-arrowthickstop-1-n'></span></a> " . 
-			"\n\t\t</p>" . 
-			"\n\t\t<p class='InputfieldFileData ui-widget ui-widget-content'>" . 
-			"\n\t\t\t<a class='InputfieldFileLink' target='_blank' href='{$thumbBig->url}'><img src='{$thumb->url}' alt='{$pagefile->basename}' /></a>" . 
-			"\n\t\t\t" . $this->renderItemDescriptionField($pagefile, $id, $n) . 
-			"\n\t\t\t<input class='InputfieldFileSort' type='text' name='sort_$id' value='$n' />" . 
-			"\n\t\t</p>";
-
-		return $out; 
+		return parent::___renderItem($pagefile, $id, $n);
 	}
 
-	public function ___getConfigInputfields() {
-
+	public function ___getConfigInputfields()
+	{
 		$inputfields = parent::___getConfigInputfields();
+
+		$inputfields->get('maxWidth')->parent->collapsed = InputfieldPDF::collapsedHidden;
+
+		if ($inputfields->has('minWidth')) { // PW 2.5
+			$inputfields->get('minWidth')->parent->collapsed = InputfieldPDF::collapsedHidden;
+		}
 	
 		return $inputfields; 	
 	}

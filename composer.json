@@ -1,0 +1,14 @@
+{
+    "name": "uiii/processwire-fieldtypepdf",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Richard Jedlička",
+            "email": "jedlicka.r@gmail.com"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+		"phpunit/phpunit": "4.5"
+	}
+}
