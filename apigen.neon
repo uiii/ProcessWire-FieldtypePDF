@@ -1,5 +1,4 @@
 source: .
-destination: doc
 title: FieldtypePDF
 deprecated: true
 extensions: [php, module]
