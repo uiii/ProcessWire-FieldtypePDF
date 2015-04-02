@@ -250,6 +250,10 @@ class PagePDF extends Pagefile
 	{
 		$images = $this->getImages();
 
+		if ($images->count() == 0) {
+			$images->add($this->toImage());
+		}
+
 		foreach($images as $image) {
 			if($image->basename === $basename || $image->isVariation($basename)) {
 				return true;

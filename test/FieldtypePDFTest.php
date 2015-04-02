@@ -127,7 +127,7 @@ class FieldtypePDFTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @depends testCreateImage
+	 * @depends testAddFile
 	 */
 	public function testCreateImageWithCustomOptions($pdfFiles)
 	{
@@ -158,7 +158,7 @@ class FieldtypePDFTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @depends testCreateImageWithCustomOptions
+	 * @depends testAddFile
 	 */
 	public function testDeprecatedMethods($pdfFiles)
 	{
@@ -169,6 +169,10 @@ class FieldtypePDFTest extends PHPUnit_Framework_TestCase
 
 		$this->assertEquals($image, $depracatedImage);
 		$this->assertTrue($pdfFile->isThumbnail($depracatedImage));
+
+		$depracatedImageBasename = $depracatedImage->basename;
+		$pdfFile->removeImages();
+		$this->assertTrue($pdfFile->isThumbnail($depracatedImageBasename));
 	}
 
 	/**
