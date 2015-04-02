@@ -34,14 +34,14 @@ $image->size(100, 100);
 ```
 Method accepts two optional parameters. First is the `$page`, which specifies the PDF's page number the image is generated from, default is 0. The exception is thrown if the page is out of range.
 
-The second is `$options` parameter, which is the array of options to override the options set in administration.
+The second is `$options` parameter, which is an array of options to override the options set in administration.
 ```php
 $options = array(
   'suffix' => array('suffix1', 'suffix2'), // suffixes used in filename
   'forceNew' => false, // if TRUE the image is regenerated if already exists
   'format' => 'JPEG', // image format
   'extension' => 'jpg', // image file extension
-  'background' => '#FFFFFF', // background color used when the PDF has transparent background, 
+  'background' => '#FFFFFF', // background color used when the PDF has transparent background
   'resolution' => '300x300', // resolution used when reading the PDF
   'colorspace' => Imagick::COLORSPACE_RGB, // colorspace used when reading the PDF
   'imagickOptions' => array( // ImageMagick options
@@ -50,7 +50,7 @@ $options = array(
 )
 ```
 
-For each combinations of *page* and *suffixes* there will be one image. The generated images are saved in page's assets and will be **created only once** until *forceNew* options is TRUE. The image is the instance of `Pageimage`, so you can do with it whatever you can do with image field. When you delete the PDF file the generated images are deleted too.
+For each combinations of *page* and *suffixes* there will be one image. The generated images are saved in page's assets and will be **created only once** until *forceNew* options is TRUE. The image is the instance of `Pageimage`, so you can do with it whatever you can do with the image field. When you delete the PDF file the generated images are deleted too.
 
 ## API documentation
 
@@ -75,7 +75,7 @@ Detailed instructions can be found here: http://www.lassosoft.com/CMYK-Colour-Ma
 
 ### 1.1.0
 
-- API change: New method `toImage`. Previous `thumbnail` and related methods are marked as **deprecated**
+- API change: New method `toImage`. Previous `thumbnail` and related methods are marked as **deprecated**. See [Migrating from 1.0.1 to 1.1.0](https://github.com/uiii/ProcessWire-FieldtypePDF/wiki/Migrating-from-1.0.1-to-1.1.0)
 - PDF to image converter is now configurable in admin [issue [#7](https://github.com/uiii/ProcessWire-FieldtypePDF/issues/7)]
 - You can specify which page of the PDF's the image is generated from [issue [#3](https://github.com/uiii/ProcessWire-FieldtypePDF/issues/3)]
 - Fix bugs [issue [#4](https://github.com/uiii/ProcessWire-FieldtypePDF/issues/4), [#6](https://github.com/uiii/ProcessWire-FieldtypePDF/issues/6)]
