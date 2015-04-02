@@ -16,5 +16,7 @@ script:
 
 after_success:
     - wget https://gist.githubusercontent.com/uiii/1fc5373c6f58ba29fb33/raw/generate-api.sh
-    - REPO_SLUG=${TRAVIS_REPO_SLUG} sh generate-api.sh
+    - export REPO_SLUG=${TRAVIS_REPO_SLUG}
+    - export API_VERSION=${TRAVIS_BRANCH}
+    - if [ ${TRAVIS_PULL_REQUEST} = 'false' ] sh generate-api.sh
 
