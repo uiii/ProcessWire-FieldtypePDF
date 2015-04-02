@@ -33,7 +33,7 @@ After the file is uploaded you will see a small thumbnail of it, just like for i
 
 Image generation is highly configurable (image format, extension, background, ...). See the *PDF to image converter* section on field's *Details* tab.
 
-![Field settings](http://i.imgbox.com/ssLdyPor.png)
+![Field settings](http://imgbox.com/xP1dt37q)
 
 ### In templates
 
