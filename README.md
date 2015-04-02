@@ -105,7 +105,7 @@ $image->size($widht, $height);
 
 ### 1.1.0
 
-- API change: New method `toImage`. Previous `thumbnail` and related methods are marked as **deprecated**. See [Upgrading from 1.0.1 and lower](#upgrading-from-101-and-lower)
+- API change: New method `toImage`. Previous `thumbnail` and related methods are marked as **deprecated**
 - PDF to image converter is now configurable in admin [issue [#7](https://github.com/uiii/ProcessWire-FieldtypePDF/issues/7)]
 - You can specify which page of the PDF's the image is generated from [issue [#3](https://github.com/uiii/ProcessWire-FieldtypePDF/issues/3)]
 - Fix bugs [issue [#4](https://github.com/uiii/ProcessWire-FieldtypePDF/issues/4), [#6](https://github.com/uiii/ProcessWire-FieldtypePDF/issues/6)]
