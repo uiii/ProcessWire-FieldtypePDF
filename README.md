@@ -97,7 +97,7 @@ $image->size($widht, $height);
 
 - `isThumbnail($basename)` replace with `isImageOfThis($basename)`
 
-*NOTE: There are certain incompatibility between these two methods. While `isThumbnail` returns TRUE for all the images generated from the PDF and also theirs derivatives (e.g. pdf.jpg, pdf.100x100.jpg), the `isImageOfThis` return TRUE only for the images generated directly from PDF (e.g. pdf.jpg). That doesn't change much, because you can use it in combination with `Pageimage::isVariation`.*
+> NOTE: There is certain incompatibility between these two methods. While `isThumbnail` returns TRUE for all the images generated from the PDF and also theirs derivatives (e.g. *pdf.jpg*, *pdf.100x100.jpg*), the `isImageOfThis` return TRUE only for the images generated directly from PDF (e.g. *pdf.jpg*). That doesn't change much, because you can use it in combination with `Pageimage::isVariation`.
 
 - `removeThumbnails` replace with `removeImages`
 
@@ -105,7 +105,7 @@ $image->size($widht, $height);
 
 ### 1.1.0
 
-- API change: New method `toImage`. Previous `thumbnail` and related methods are marked as **deprecated**
+- API change: New method `toImage`. Previous `thumbnail` and related methods are marked as deprecated
 - PDF to image converter is now configurable in admin [issue [#7](https://github.com/uiii/ProcessWire-FieldtypePDF/issues/7)]
 - You can specify which page of the PDF's the image is generated from [issue [#3](https://github.com/uiii/ProcessWire-FieldtypePDF/issues/3)]
 - Fix bugs [issue [#4](https://github.com/uiii/ProcessWire-FieldtypePDF/issues/4), [#6](https://github.com/uiii/ProcessWire-FieldtypePDF/issues/6)]
