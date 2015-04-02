@@ -2,6 +2,17 @@
 
 Module for ProcessWire CMS allowing you to easily generate images from the PDF files embedded to the site.
 
+1. [Requirements](#requirements)
+2. [Installation](#installation)
+3. [How to use](#how-to-use)
+	- [In site's administration](#in-sites-administration)
+	- [In templates](#in-templates)
+4. [API documentation](#api-documentation)
+5. [Tests](#tests)
+6. [Notes](#notes)
+7. [Upgrading from 1.0.1 and lower](#upgrading-from-101-and-lower)
+8. [Changelog](#changelog)
+
 ## Requirements
 
 - Processwire 2.4+
@@ -71,11 +82,30 @@ In some cases, the thumbnail's colors might not match the colors in PDF. To fix 
 
 Detailed instructions can be found here: http://www.lassosoft.com/CMYK-Colour-Matching-with-ImageMagick
 
+## Upgrading from 1.0.1 and lower
+
+In 1.1.0 some methods of class PagePDF are deprecated. See the list [here](http://uiii.github.io/ProcessWire-FieldtypePDF/deprecated.html). You doesn't have to make any changes but it is recommended to use the new API, for compatibility with later versions.
+
+Instructions for replacing the deprecated methods:
+
+- `$page->pdf->thumbnail($width, $height)` replace with the code
+
+```php
+$image = $page->pdf->toImage();
+$image->size($widht, $height);
+```
+
+- `isThumbnail($basename)` replace with `isImageOfThis($basename)`
+
+*NOTE: There are certain incompatibility between these two methods. While `isThumbnail` returns TRUE for all the images generated from the PDF and also theirs derivatives (e.g. pdf.jpg, pdf.100x100.jpg), the `isImageOfThis` return TRUE only for the images generated directly from PDF (e.g. pdf.jpg). That doesn't change much, because you can use it in combination with `Pageimage::isVariation`.*
+
+- `removeThumbnails` replace with `removeImages`
+
 ## Changelog
 
 ### 1.1.0
 
-- API change: New method `toImage`. Previous `thumbnail` and related methods are marked as **deprecated**. See [Migrating from 1.0.1 to 1.1.0](https://github.com/uiii/ProcessWire-FieldtypePDF/wiki/Migrating-from-1.0.1-to-1.1.0)
+- API change: New method `toImage`. Previous `thumbnail` and related methods are marked as **deprecated**. See [Upgrading from 1.0.1 and lower](#upgrading-from-101-and-lower)
 - PDF to image converter is now configurable in admin [issue [#7](https://github.com/uiii/ProcessWire-FieldtypePDF/issues/7)]
 - You can specify which page of the PDF's the image is generated from [issue [#3](https://github.com/uiii/ProcessWire-FieldtypePDF/issues/3)]
 - Fix bugs [issue [#4](https://github.com/uiii/ProcessWire-FieldtypePDF/issues/4), [#6](https://github.com/uiii/ProcessWire-FieldtypePDF/issues/6)]
