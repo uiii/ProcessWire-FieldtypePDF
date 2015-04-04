@@ -37,6 +37,8 @@ Image generation is highly configurable (image format, extension, background, ..
 
 ### In templates
 
+> There are some backward-compatible API changes against the version 1.0.1 and lower, see [Upgrading from 1.0.1 and lower](#upgrading-from-101-and-lower).
+
 The PDF field extends file field and adds new hookable [`___toImage($page = 0, $options = array())`](http://uiii.github.io/ProcessWire-FieldtypePDF/dev/class-FieldtypePDF.PagePDF.html#____toImage) method to generate the image from PDF.
 
 ```php
