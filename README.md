@@ -74,7 +74,12 @@ apigen generate -d doc
 
 ## Tests
 
-TODO
+> **DO NOT** run the tests against the production site. They modify the fields, templates and pages as they need, so can potentially damage your site!
+
+Prepare the PW testing installation and export the `PW_PATH` environment variable containing the path to the root of the installation. Copy the module sources in the `$PW_PATH/site/modules/FieldtypePDF` directory and run from here:
+```
+phpunit
+```
 
 ## Notes
 
