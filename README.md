@@ -37,7 +37,7 @@ Image generation is highly configurable (image format, extension, background, ..
 
 ### In templates
 
-The PDF field extends file field and adds new hookable [`___toImage($page = 0, $options = array())`](http://uiii.github.io/ProcessWire-FieldtypePDF/class-FieldtypePDF.PagePDF.html#____toImage) method to generate the image from PDF.
+The PDF field extends file field and adds new hookable [`___toImage($page = 0, $options = array())`](http://uiii.github.io/ProcessWire-FieldtypePDF/dev/class-FieldtypePDF.PagePDF.html#____toImage) method to generate the image from PDF.
 
 ```php
 $image = $page->pdfFile->toImage();
@@ -65,7 +65,7 @@ For each combinations of *page* and *suffixes* there will be one image. The gene
 
 ## API documentation
 
-See http://uiii.github.io/ProcessWire-FieldtypePDF. 
+See http://uiii.github.io/ProcessWire-FieldtypePDF/dev. 
 
 Or generate your own into *doc* directory:
 ```
@@ -84,7 +84,7 @@ Detailed instructions can be found here: http://www.lassosoft.com/CMYK-Colour-Ma
 
 ## Upgrading from 1.0.1 and lower
 
-In 1.1.0 some methods of class PagePDF are deprecated. See the list [here](http://uiii.github.io/ProcessWire-FieldtypePDF/deprecated.html). You doesn't have to make any changes but it is recommended to use the new API, for compatibility with later versions.
+In 1.1.0 some methods of class PagePDF are deprecated. See the list [here](http://uiii.github.io/ProcessWire-FieldtypePDF/dev/deprecated.html). You doesn't have to make any changes but it is recommended to use the new API, for compatibility with later versions.
 
 Instructions for replacing the deprecated methods:
 
