@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class FieldtypePDF\PDFConverter | FieldtypePDF</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-FieldtypePDF.html">
+						FieldtypePDF					</a>
+
+						</li>
+				<li>
+					<a href="namespace-None.html">
+						None					</a>
+
+						</li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-FieldtypePDF.PagePDF.html">PagePDF</a></li>
+				<li><a href="class-FieldtypePDF.PagePDFs.html">PagePDFs</a></li>
+				<li class="active"><a href="class-FieldtypePDF.PDFConverter.html">PDFConverter</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-FieldtypePDF.html" title="Summary of FieldtypePDF"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="deprecated.html" title="List of deprecated elements"><span>Deprecated</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class PDFConverter</h1>
+
+
+	<div class="description">
+	<p>PDF to image converter</p>
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-FieldtypePDF.html">FieldtypePDF</a><br>
+		
+
+			<b>Located at</b> <a href="source-class-FieldtypePDF.PDFConverter.html#31-179" title="Go to source code">FieldtypePDF/PDFConverter.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-FieldtypePDF.PDFConverter.html#61-72" title="Go to source code">__construct</a>( <span>string <var>$pdfFilename</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			<p>Constructor</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Constructor</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$pdfFilename</var></dt>
+					<dd>PDF file to be converted</dd>
+					<dt><var>$options</var></dt>
+					<dd>Converter options (Optional)</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						<code><a href="class-FieldtypePDF.PDFConverter.html#_setOptions">FieldtypePDF\PDFConverter::setOptions()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setOptions" id="_setOptions">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setOptions">#</a>
+		<code><a href="source-class-FieldtypePDF.PDFConverter.html#74-119" title="Go to source code">setOptions</a>( <span>array <var>$options</var></span> )</code>
+
+		<div class="description short">
+			<p>Set converter options</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Set converter options</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$options</var></dt>
+					<dd><p>Available options are:</p>
+
+<ul>
+<li>format (string) - format of the image</li>
+<li>extension (string) - image file extension</li>
+<li>background (string) - image background (used when the PDF's background is transparent),
+to leave the background transparent set NULL</li>
+<li>resolution (string) - resolution used when reading the PDF (e.g. '300x300')</li>
+<li>colorspace (int) - colorspace used when reading the PDF (Imagick::COLORSPACE_* constant)</li>
+<li>imagickOptions (string[]) - ImageMagick options (each option in format 'key=value')</li>
+</ul>
+
+<p>For converter default options see <code><a href="class-FieldtypePDF.PDFConverter.html#$defaultOptions">FieldtypePDF\PDFConverter::<var>$defaultOptions</var></a></code></p></dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getOptions" id="_getOptions">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getOptions">#</a>
+		<code><a href="source-class-FieldtypePDF.PDFConverter.html#121-129" title="Go to source code">getOptions</a>( )</code>
+
+		<div class="description short">
+			<p>Get converter options</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get converter options</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					array
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="toImage" id="_toImage">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_toImage">#</a>
+		<code><a href="source-class-FieldtypePDF.PDFConverter.html#131-178" title="Go to source code">toImage</a>( <span>integer <var>$page</var></span>, <span>string <var>$imageFilename</var></span> )</code>
+
+		<div class="description short">
+			<p>Convert PDF to image specified by filename.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Convert PDF to image specified by filename.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$page</var></dt>
+					<dd>Number of PDF's page to be converted to image (indexed from 0)</dd>
+					<dt><var>$imageFilename</var></dt>
+					<dd>Filename of output image</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="defaultOptions" id="$defaultOptions">
+		<td class="attributes"><code>
+			public static 
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-FieldtypePDF.PDFConverter.html#36-48" title="Go to source code"><var>$defaultOptions</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$defaultOptions" class="anchor">#</a>
+				<code><span class="php-keyword1">array</span>(
+    <span class="php-quote">'format'</span> =&gt; <span class="php-quote">'JPEG'</span>,
+    <span class="php-quote">'extension'</span> =&gt; <span class="php-quote">'jpg'</span>,
+    <span class="php-quote">'background'</span> =&gt; <span class="php-quote">'#FFFFFF'</span>,
+    <span class="php-quote">'resolution'</span> =&gt; <span class="php-quote">'300x300'</span>,
+    <span class="php-quote">'colorspace'</span> =&gt; Imagick::COLORSPACE_RGB,
+    <span class="php-quote">'imagickOptions'</span> =&gt; <span class="php-keyword1">array</span>(
+        <span class="php-quote">'pdf:use-cropbox=true'</span>
+    ),
+)</code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="options" id="$options">
+		<td class="attributes"><code>
+			protected  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-FieldtypePDF.PDFConverter.html#50-53" title="Go to source code"><var>$options</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$options" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="pdfFilename" id="$pdfFilename">
+		<td class="attributes"><code>
+			protected  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-FieldtypePDF.PDFConverter.html#55-59" title="Go to source code"><var>$pdfFilename</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$pdfFilename" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		FieldtypePDF API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>
