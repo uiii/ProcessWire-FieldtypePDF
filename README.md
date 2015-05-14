@@ -37,7 +37,9 @@ Image generation is highly configurable (image format, extension, background, ..
 
 ### In templates
 
-The PDF field extends file field and adds new hookable [`___toImage($page = 0, $options = array())`](http://uiii.github.io/ProcessWire-FieldtypePDF/class-FieldtypePDF.PagePDF.html#____toImage) method to generate the image from PDF.
+> There are some backward-compatible API changes against the version 1.0.1 and lower, see [Upgrading from 1.0.1 and lower](#upgrading-from-101-and-lower).
+
+The PDF field extends file field and adds new hookable [`___toImage($page = 0, $options = array())`](http://uiii.github.io/ProcessWire-FieldtypePDF/dev/class-FieldtypePDF.PagePDF.html#____toImage) method to generate the image from PDF.
 
 ```php
 $image = $page->pdfFile->toImage();
@@ -65,7 +67,7 @@ For each combinations of *page* and *suffixes* there will be one image. The gene
 
 ## API documentation
 
-See http://uiii.github.io/ProcessWire-FieldtypePDF. 
+See http://uiii.github.io/ProcessWire-FieldtypePDF/dev. 
 
 Or generate your own into *doc* directory:
 ```
@@ -74,7 +76,12 @@ apigen generate -d doc
 
 ## Tests
 
-TODO
+> **DO NOT** run the tests against the production site. They modify the fields, templates and pages as they need, so can potentially damage your site!
+
+Prepare the PW testing installation and export the `PW_PATH` environment variable containing the path to the root of the installation. Copy the module sources in the `$PW_PATH/site/modules/FieldtypePDF` directory and run from here:
+```
+phpunit
+```
 
 ## Notes
 
@@ -84,7 +91,7 @@ Detailed instructions can be found here: http://www.lassosoft.com/CMYK-Colour-Ma
 
 ## Upgrading from 1.0.1 and lower
 
-In 1.1.0 some methods of class PagePDF are deprecated. See the list [here](http://uiii.github.io/ProcessWire-FieldtypePDF/deprecated.html). You doesn't have to make any changes but it is recommended to use the new API, for compatibility with later versions.
+In 1.1.0 some methods of class PagePDF are deprecated. See the list [here](http://uiii.github.io/ProcessWire-FieldtypePDF/dev/deprecated.html). You doesn't have to make any changes but it is recommended to use the new API, for compatibility with later versions.
 
 Instructions for replacing the deprecated methods:
 
