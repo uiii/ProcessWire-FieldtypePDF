@@ -26,6 +26,8 @@
 
 /**
  * PHPUnit test for FieldtypePDF ProcessWire module
+ * 
+ * @backupGlobals disabled
  */
 class FieldtypePDFTest extends PHPUnit_Framework_TestCase
 {
