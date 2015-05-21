@@ -147,6 +147,7 @@ class FieldtypePDF extends FieldtypeFile
 		$colorspaceField = $this->modules->get('InputfieldSelect');
 		$colorspaceField->attr('name', 'converterColorspace');
 		$colorspaceField->label = $this->_('Color space');
+		$colorspaceField->description = $this->_('Leave empty if you don\'t want to set.');
 
 		$imagickReflection = new ReflectionClass('Imagick');
 		foreach ($imagickReflection->getConstants() as $name => $value) {
@@ -161,7 +162,13 @@ class FieldtypePDF extends FieldtypeFile
 			}
 		}
 		
-		$colorspaceField->attr('value', $field->converterColorspace ?: $converterOptions['colorspace']);
+		$colorspaceField->attr('value', $field->converterColorspace === null ? $converterOptions['colorspace'] : $field->converterColorspace);
+
+		if (! PDFConverter::isColorspaceSupported()) {
+			$colorspaceField->attr('disabled', true);
+			$colorspaceField->addOption(Imagick::COLORSPACE_UNDEFINED, 'not supported');
+			$colorspaceField->notes = $this->_('Supported since ImageMagick version 6.5.7');
+		}
 
 		$optionsField = $this->modules->get('InputfieldTextarea');
 		$optionsField->attr('name', 'converterImagickOptions'); 

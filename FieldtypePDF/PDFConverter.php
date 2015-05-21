@@ -59,6 +59,16 @@ class PDFConverter
 	protected $pdfFilename;
 
 	/**
+	 * Check if colorspace is supported by ImageMagick.
+	 * 
+	 * @return bool
+	 */
+	public static function isColorspaceSupported()
+	{
+		return method_exists('Imagick', 'setColorspace');
+	}
+
+	/**
 	 * Constructor
 	 * 
 	 * @param string $pdfFilename PDF file to be converted
@@ -152,7 +162,7 @@ class PDFConverter
 			$imagick->setOption($defition[0], $defition[1]);
 		}
 
-		if ($options['colorspace']) {
+		if ($options['colorspace'] && self::isColorspaceSupported()) {
 			$imagick->setColorspace($options['colorspace']);
 		}
 
