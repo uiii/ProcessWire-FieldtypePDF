@@ -9,8 +9,8 @@ Module for ProcessWire CMS allowing you to easily generate images from the PDF f
 	- [In templates](#in-templates)
 4. [API documentation](#api-documentation)
 5. [Tests](#tests)
-6. [Notes](#notes)
-7. [Upgrading from 1.0.1 and lower](#upgrading-from-101-and-lower)
+6. [Upgrading from 1.0.1 and lower](#upgrading-from-101-and-lower)
+7. [Troubleshooting](#troubleshooting)
 8. [Changelog](#changelog)
 
 ## Requirements
@@ -83,12 +83,6 @@ Prepare the PW testing installation and export the `PW_PATH` environment variabl
 phpunit
 ```
 
-## Notes
-
-In some cases, the thumbnail's colors might not match the colors in PDF. To fix that, you need to made some changes in ImageMagick delegate files.
-
-Detailed instructions can be found here: http://www.lassosoft.com/CMYK-Colour-Matching-with-ImageMagick
-
 ## Upgrading from 1.0.1 and lower
 
 In 1.1.0 some methods of class PagePDF are deprecated. See the list [here](http://uiii.github.io/ProcessWire-FieldtypePDF/dev/deprecated.html). You doesn't have to make any changes but it is recommended to use the new API, for compatibility with later versions.
@@ -107,6 +101,18 @@ $image->size($widht, $height);
 > NOTE: There is certain incompatibility between these two methods. While `isThumbnail` returns TRUE for all the images generated from the PDF and also theirs derivatives (e.g. *pdf.jpg*, *pdf.100x100.jpg*), the `isImageOfThis` return TRUE only for the images generated directly from PDF (e.g. *pdf.jpg*). That doesn't change much, because you can use it in combination with `Pageimage::isVariation`.
 
 - `removeThumbnails` replace with `removeImages`
+
+## Troubleshooting
+
+### Thumbnail's colors do not match the colors in PDF
+
+To fix that, you need to made some changes in ImageMagick delegate files. Detailed instructions can be found here: http://www.lassosoft.com/CMYK-Colour-Matching-with-ImageMagick
+
+### GhostScript exceptions occured
+
+If you got some GhostScript exception when generating image, update GhostScript and ImageMagick to the latest versions. 
+
+If you cant, you can use the *fallback mode*. Turn it on in the module's settings. But be aware of that it will produce low quality images and most of the options won't be abvailable.
 
 ## Changelog
 

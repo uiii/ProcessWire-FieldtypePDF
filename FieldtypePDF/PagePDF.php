@@ -65,6 +65,10 @@ class PagePDF extends Pagefile
 			$this->options['extension'] = $field->get('imageExtension');
 		}
 
+		if ($field->type->fallbackMode) {
+			$this->options['fallbackMode'] = true;
+		}
+
 		$this->images = new Pageimages($this->pagefiles->getPage());
 	}
 
@@ -96,7 +100,7 @@ class PagePDF extends Pagefile
 		$defaultOptions = array(
 			'extension' => self::$defaultImageExtension,
 			'suffix' => array(),
-			'forceNew' => false
+			'forceNew' => false,
 		);
 
 		if ($page > 0) {

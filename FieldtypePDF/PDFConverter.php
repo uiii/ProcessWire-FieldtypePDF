@@ -45,6 +45,7 @@ class PDFConverter
 		'imagickOptions' => array(
 			'pdf:use-cropbox=true'
 		),
+		'fallbackMode' => false
 	);
 
 	/**
@@ -95,6 +96,7 @@ class PDFConverter
 	 * - resolution (string) - resolution used when reading the PDF (e.g. '300x300')
 	 * - colorspace (int) - colorspace used when reading the PDF (Imagick::COLORSPACE_* constant)
 	 * - imagickOptions (string[]) - ImageMagick options (each option in format 'key=value')
+	 * - fallbackMode (bool) - Fallback mode (produces low quality images, but may work where normal mode don't)
 	 * 
 	 * For converter default options see {@link $defaultOptions}
 	 */
@@ -151,26 +153,31 @@ class PDFConverter
 		$imagick = new Imagick();
 		$backgroundImagick = new Imagick();
 
-		if ($options['resolution']) {
-			$resolution = $options['resolution'];
-			$imagick->setResolution($resolution[0], $resolution[1]);
-			$backgroundImagick->setResolution($resolution[0], $resolution[1]);
-		}
+		if ($options['fallbackMode']) {
+			$imagick->clear();
+			$imagick = new Imagick(sprintf('%s[%s]', $this->pdfFilename, $page));
+		} else {
+			if ($options['resolution']) {
+				$resolution = $options['resolution'];
+				$imagick->setResolution($resolution[0], $resolution[1]);
+				$backgroundImagick->setResolution($resolution[0], $resolution[1]);
+			}
 
-		foreach($options['imagickOptions'] as $defition) {
-			$defition = explode('=', $defition);
-			$imagick->setOption($defition[0], $defition[1]);
-		}
+			foreach($options['imagickOptions'] as $defition) {
+				$defition = explode('=', $defition);
+				$imagick->setOption($defition[0], $defition[1]);
+			}
 
-		if ($options['colorspace'] && self::isColorspaceSupported()) {
-			$imagick->setColorspace($options['colorspace']);
-		}
+			if ($options['colorspace'] && self::isColorspaceSupported()) {
+				$imagick->setColorspace($options['colorspace']);
+			}
 
-		$imagick->readimage(sprintf('%s[%s]', $this->pdfFilename, $page));
+			$imagick->readimage(sprintf('%s[%s]', $this->pdfFilename, $page));
+		}
 
 		$image = $imagick;
 
-		if ($options['background'] !== 'transparent') {
+		if ($options['background'] !== 'transparent' && ! $options['fallbackMode']) {
 			$backgroundImagick->newImage(
 				$imagick->getimagewidth(),
 				$imagick->getimageheight(),

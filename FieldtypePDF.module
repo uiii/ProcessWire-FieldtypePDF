@@ -28,8 +28,12 @@ use FieldtypePDF\PagePDF;
 use FieldtypePDF\PagePDFs;
 use FieldtypePDF\PDFConverter;
 
-class FieldtypePDF extends FieldtypeFile
+class FieldtypePDF extends FieldtypeFile implements ConfigurableModule
 {
+	protected static $defaults = array(
+		'fallbackMode' => false
+	);
+
 	public static function getModuleInfo() 
 	{
 		return array(
@@ -76,7 +80,7 @@ class FieldtypePDF extends FieldtypeFile
 		$pagePDFs = new PagePDFs($page);
 		$pagePDFs->setField($field); 
 		$pagePDFs->setTrackChanges(true); 
-		
+
 		return $pagePDFs; 
 	}
 
@@ -123,70 +127,97 @@ class FieldtypePDF extends FieldtypeFile
 		$extensionField->required = true; 
 		$thumbnailFieldset->add($extensionField); 
 
-		$backgroundField = $this->modules->get('InputfieldText'); 
-		$backgroundField->attr('name', 'converterBackground'); 
-		$backgroundField->attr('value', $field->converterBackground ?: $converterOptions['background']); 
-		$backgroundField->label = $this->_('Image background'); 
-		$backgroundField->description = $this->_('Color used as a background for transparent PDFs. Enter \'transparent\' if you don\'t want the background to be set. Default color is white.');
-		$url = 'http://www.imagemagick.org/script/color.php';
-		$backgroundField->notes = $this->_("For supported colors see [$url]($url)");
-		$thumbnailFieldset->add($backgroundField); 
+		if (! $this->fallbackMode) {
+			$backgroundField = $this->modules->get('InputfieldText'); 
+			$backgroundField->attr('name', 'converterBackground'); 
+			$backgroundField->attr('value', $field->converterBackground ?: $converterOptions['background']); 
+			$backgroundField->label = $this->_('Image background'); 
+			$backgroundField->description = $this->_('Color used as a background for transparent PDFs. Enter \'transparent\' if you don\'t want the background to be set. Default color is white.');
+			$url = 'http://www.imagemagick.org/script/color.php';
+			$backgroundField->notes = $this->_("For supported colors see [$url]($url)");
+			$thumbnailFieldset->add($backgroundField); 
 
-		$imagickFieldset = $this->modules->get('InputfieldFieldset');
-		$imagickFieldset->label = $this->_('ImageMagick settings (advanced)');
-		$imagickFieldset->collapsed = Inputfield::collapsedYes; 
-		$imagickFieldset->description = $this->_('Settings set to the ImageMagick instance before reading the PDF file. **Change this only if you know what you are doing.**');
+			$imagickFieldset = $this->modules->get('InputfieldFieldset');
+			$imagickFieldset->label = $this->_('ImageMagick settings (advanced)');
+			$imagickFieldset->collapsed = Inputfield::collapsedYes; 
+			$imagickFieldset->description = $this->_('Settings set to the ImageMagick instance before reading the PDF file. **Change this only if you know what you are doing.**');
 
-		$resolutionField = $this->modules->get('InputfieldText'); 
-		$resolutionField->attr('name', 'converterResolution'); 
-		$resolutionField->attr('value', $field->converterResolution ?: $converterOptions['resolution']); 
-		$resolutionField->label = $this->_('density'); 
-		$url = 'http://www.imagemagick.org/script/command-line-options.php#density';
-		$resolutionField->notes = $this->_("see [$url]($url)");
+			$resolutionField = $this->modules->get('InputfieldText'); 
+			$resolutionField->attr('name', 'converterResolution'); 
+			$resolutionField->attr('value', $field->converterResolution ?: $converterOptions['resolution']); 
+			$resolutionField->label = $this->_('density'); 
+			$url = 'http://www.imagemagick.org/script/command-line-options.php#density';
+			$resolutionField->notes = $this->_("see [$url]($url)");
 
-		$colorspaceField = $this->modules->get('InputfieldSelect');
-		$colorspaceField->attr('name', 'converterColorspace');
-		$colorspaceField->label = $this->_('Color space');
-		$colorspaceField->description = $this->_('Leave empty if you don\'t want to set.');
+			$colorspaceField = $this->modules->get('InputfieldSelect');
+			$colorspaceField->attr('name', 'converterColorspace');
+			$colorspaceField->label = $this->_('Color space');
+			$colorspaceField->description = $this->_('Leave empty if you don\'t want to set.');
 
-		$imagickReflection = new ReflectionClass('Imagick');
-		foreach ($imagickReflection->getConstants() as $name => $value) {
-			if (preg_match('/^COLORSPACE_([^_]+)$/', $name, $matches)) {
-				$name = $matches[1];
+			$imagickReflection = new ReflectionClass('Imagick');
+			foreach ($imagickReflection->getConstants() as $name => $value) {
+				if (preg_match('/^COLORSPACE_([^_]+)$/', $name, $matches)) {
+					$name = $matches[1];
 
-				if ($name === 'UNDEFINED') {
-					$colorspaceField->addOption($value, '');
-				} else {
-					$colorspaceField->addOption($value, $name);
+					if ($name === 'UNDEFINED') {
+						$colorspaceField->addOption($value, '');
+					} else {
+						$colorspaceField->addOption($value, $name);
+					}
 				}
 			}
+			
+			$colorspaceField->attr('value', $field->converterColorspace === null ? $converterOptions['colorspace'] : $field->converterColorspace);
+
+			if (! PDFConverter::isColorspaceSupported()) {
+				$colorspaceField->attr('disabled', true);
+				$colorspaceField->addOption(Imagick::COLORSPACE_UNDEFINED, 'not supported');
+				$colorspaceField->notes = $this->_('Supported since ImageMagick version 6.5.7');
+			}
+
+			$optionsField = $this->modules->get('InputfieldTextarea');
+			$optionsField->attr('name', 'converterImagickOptions'); 
+			$optionsField->attr('rows', 3); 
+			$optionsField->label = $this->_('Options');
+			$optionsField->description = $this->_('One definition per line (key=value).');
+			$url = 'http://www.imagemagick.org/script/command-line-options.php#define';
+			$optionsField->notes = $this->_("See [$url]($url)");
+
+			$optionsField->attr('value', $field->converterImagickOptions ?: implode("\n", $converterOptions['imagickOptions'])); 
+
+			$imagickFieldset->append($resolutionField); 
+			$imagickFieldset->append($colorspaceField);
+			$imagickFieldset->append($optionsField);
+
+			$thumbnailFieldset->add($imagickFieldset); 
+		} else {
+			$thumbnailFieldset->notes = $this->_(
+				'**Fallback mode is ON:** This will produce low quality images and some field type options won\'t be available, but may work where normal mode doesn\'t.' .
+				'You can turn it OFF [here](' . $this->config->urls->admin . 'module/edit?name=' . $this->name . ').'
+			);
 		}
-		
-		$colorspaceField->attr('value', $field->converterColorspace === null ? $converterOptions['colorspace'] : $field->converterColorspace);
-
-		if (! PDFConverter::isColorspaceSupported()) {
-			$colorspaceField->attr('disabled', true);
-			$colorspaceField->addOption(Imagick::COLORSPACE_UNDEFINED, 'not supported');
-			$colorspaceField->notes = $this->_('Supported since ImageMagick version 6.5.7');
-		}
-
-		$optionsField = $this->modules->get('InputfieldTextarea');
-		$optionsField->attr('name', 'converterImagickOptions'); 
-		$optionsField->attr('rows', 3); 
-		$optionsField->label = $this->_('Options');
-		$optionsField->description = $this->_('One definition per line (key=value).');
-		$url = 'http://www.imagemagick.org/script/command-line-options.php#define';
-		$optionsField->notes = $this->_("See [$url]($url)");
-
-		$optionsField->attr('value', $field->converterImagickOptions ?: implode("\n", $converterOptions['imagickOptions'])); 
-
-		$imagickFieldset->append($resolutionField); 
-		$imagickFieldset->append($colorspaceField);
-		$imagickFieldset->append($optionsField);
-
-		$thumbnailFieldset->add($imagickFieldset); 
 
 		$inputfields->add($thumbnailFieldset);
+
+		return $inputfields;
+	}
+
+	public static function getModuleConfigInputfields(array $data)
+	{
+		$data = array_merge(self::$defaults, $data);
+
+		$modules = wire('modules');
+
+		$inputfields = new InputfieldWrapper;
+
+		$field = $modules->get('InputfieldCheckbox');
+		$field->attr('name', 'fallbackMode');
+		$field->attr('checked', $data['fallbackMode']);
+		$field->label = __('Fallback mode');
+		$field->description = __('Check this when you have troubles with generating image (e.g. GhostScript errors).');
+		$field->notes = __('**Warning:** This will produce low quality images and some field type options won\'t be available, but may work where normal mode doesn\'t.');
+
+		$inputfields->add($field);
 
 		return $inputfields;
 	}
