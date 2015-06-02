@@ -110,9 +110,9 @@ To fix that, you need to made some changes in ImageMagick delegate files. Detail
 
 ### GhostScript exceptions occured
 
-If you got some GhostScript exception when generating image, update GhostScript and ImageMagick to the latest versions. 
+If you got some *GhostScript* exceptions when generating image, update *GhostScript* and *ImageMagick* to the latest versions. 
 
-If you cant, you can use the *fallback mode*. Turn it on in the module's settings. But be aware of that it will produce low quality images and most of the options won't be abvailable.
+If you can't, you can use the *fallback mode*. Turn it on in the module's settings. But be aware of that it will produce low quality images and most of the options won't be abvailable.
 
 ## Changelog
 
