@@ -177,11 +177,11 @@ class PDFConverter
 
 		$image = $imagick;
 
-		if ($options['background'] !== 'transparent' && ! $options['fallbackMode']) {
+		if ($options['background'] !== 'transparent') {
 			$backgroundImagick->newImage(
 				$imagick->getimagewidth(),
 				$imagick->getimageheight(),
-				$options['background']
+				$options['fallbackMode'] ? self::$defaultOptions['background'] : $options['background']
 			);
 
 			$backgroundImagick->compositeimage($imagick, Imagick::COMPOSITE_OVER, 0, 0);
