@@ -99,6 +99,13 @@ class InputfieldPDF extends InputfieldFile implements InputfieldItemList
 		return $thumbInfo;
 	}
 
+
+	public function ___render() {
+		$this->wire('modules')->loadModuleFileAssets('InputfieldFile'); 
+
+		return parent::___render();
+	}
+
 	protected function ___renderItem($pagefile, $id, $n)
 	{
 		$thumb = $this->getAdminThumb($pagefile); 
