@@ -33,7 +33,7 @@ class InputfieldPDF extends InputfieldFile implements InputfieldItemList
 		return array(
 			'version' => 110,
 			'title' => __('PDF files with thumbnails', __FILE__), // Module Title
-			'summary' => __('One or more pdf files upload with thumbnails', __FILE__), // Module Summary
+			'summary' => __('One or more PDF files upload with thumbnails', __FILE__), // Module Summary
 			'href' => 'http://modules.processwire.com/modules/fieldtype-pdf',
 			'author' => "Richard Jedlička",
 			'requires' => array("FieldtypePDF")
@@ -44,7 +44,7 @@ class InputfieldPDF extends InputfieldFile implements InputfieldItemList
 	{
 		parent::init();
 		$this->set('extensions', 'PDF');
-		$this->set('adminThumbs', false); 
+		$this->set('adminThumbs', false);
 
 		$options = $this->wire('config')->adminThumbOptions;
 		if(!is_array($options)) $options = array();
@@ -68,21 +68,21 @@ class InputfieldPDF extends InputfieldFile implements InputfieldItemList
 			$thumbAttrs = array();
 
 			if($this->adminThumbs) {
-				$thumbHeight = $thumb->height; 
+				$thumbHeight = $thumb->height;
 				if($thumbHeight > $this->adminThumbHeight) {
 					// create a variation for display with this inputfield
-					$thumb = $thumb->height($this->adminThumbHeight); 
+					$thumb = $thumb->height($this->adminThumbHeight);
 					if($thumb->error) $error = "<span class='ui-state-error-text'>$thumb->error</span>";
 					$thumbHeight = $this->adminThumbHeight;
 				}
 				$thumbAttrs['height'] = $thumbHeight;
 				$thumbAttrs['width'] = $thumb->width;
 			}
-			
-			$thumbAttrs['src'] = $thumb->url; 
+
+			$thumbAttrs['src'] = $thumb->url;
 
 			// ensure cached image doesn't get shown when replacing same filename
-			if($this->overwrite) $thumbAttrs['src'] .= "?m=" . filemtime($pdf->pathname);  
+			if($this->overwrite) $thumbAttrs['src'] .= "?m=" . filemtime($pdf->pathname);
 
 			$thumbInfo['attr'] = $thumbAttrs;
 			$thumbInfo['error'] = $error;
@@ -90,7 +90,7 @@ class InputfieldPDF extends InputfieldFile implements InputfieldItemList
 			$markup = "<img ";
 			foreach($thumbAttrs as $key => $value) $markup .= "$key=\"$value\" ";
 			$markup .= " />";
-		
+
 			$thumbInfo['markup'] = $markup;
 		}
 
@@ -101,14 +101,14 @@ class InputfieldPDF extends InputfieldFile implements InputfieldItemList
 
 
 	public function ___render() {
-		$this->wire('modules')->loadModuleFileAssets('InputfieldFile'); 
+		$this->wire('modules')->loadModuleFileAssets('InputfieldFile');
 
 		return parent::___render();
 	}
 
 	protected function ___renderItem($pagefile, $id, $n)
 	{
-		$thumb = $this->getAdminThumb($pagefile); 
+		$thumb = $this->getAdminThumb($pagefile);
 		$error = $thumb['error'] ? "<span class='ui-state-error-text'>" . $this->wire('sanitizer')->entities($thumb['error']) . "</span>" : "";
 
 		$out = "\n\t\t<p class='InputfieldFileInfo InputfieldItemHeader ui-widget ui-widget-header'>";
@@ -120,10 +120,10 @@ class InputfieldPDF extends InputfieldFile implements InputfieldItemList
 				"\n\t\t\t<span class='ui-icon ui-icon-arrowthick-1-e HideIfMultiple'></span>";
 		}
 
-		$out .= "\n\t\t\t<a class='InputfieldFileName' target='_blank' href='{$pagefile->url}'>{$pagefile->basename}</a> " . 
-			"\n\t\t\t<span class='InputfieldFileStats'>" . str_replace(' ', '&nbsp;', $pagefile->filesizeStr) . "</span> " . 
-			"\n\t\t\t<label class='InputfieldFileDelete'>" . 
-				"<input type='checkbox' name='delete_$id' value='1' title='" . $this->_('Delete') . "' />" . 
+		$out .= "\n\t\t\t<a class='InputfieldFileName' target='_blank' href='{$pagefile->url}'>{$pagefile->basename}</a> " .
+			"\n\t\t\t<span class='InputfieldFileStats'>" . str_replace(' ', '&nbsp;', $pagefile->filesizeStr) . "</span> " .
+			"\n\t\t\t<label class='InputfieldFileDelete'>" .
+				"<input type='checkbox' name='delete_$id' value='1' title='" . $this->_('Delete') . "' />" .
 				"<i class='fa fa-fw fa-trash'></i></label>";
 
 		$out .= "\n\t\t</p>"; // .InputfieldFileInfo.InputfieldItemHeader
@@ -136,36 +136,36 @@ class InputfieldPDF extends InputfieldFile implements InputfieldItemList
 				"\n\t\t\t</div>";
 		}
 
-		$out .= "\n\t\t\t" . $error . $this->renderItemDescriptionField($pagefile, $id, $n) . 
+		$out .= "\n\t\t\t" . $error . $this->renderItemDescriptionField($pagefile, $id, $n) .
 			"\n\t\t\t<input class='InputfieldFileSort' type='text' name='sort_$id' value='$n' />";
 
 		$out .= "\n\t\t</div>"; // . InputfieldFileData
 
-		return $out; 
+		return $out;
 	}
 
 	public function ___getConfigInputfields()
 	{
 		$inputfields = parent::___getConfigInputfields();
-	
-		$field = $this->modules->get('InputfieldCheckbox'); 
-		$field->attr('name', 'adminThumbs'); 
-		$field->attr('value', 1); 
-		$field->attr('checked', $this->adminThumbs ? 'checked' : ''); 
-		$field->label = $this->_('Display thumbnails in page editor?'); 
-		$inputfields->add($field); 
+
+		$field = $this->modules->get('InputfieldCheckbox');
+		$field->attr('name', 'adminThumbs');
+		$field->attr('value', 1);
+		$field->attr('checked', $this->adminThumbs ? 'checked' : '');
+		$field->label = $this->_('Display thumbnails in page editor?');
+		$inputfields->add($field);
 
 		return $inputfields;
 	}
 
 	/**
 	 * Specify which config inputfields can be used with template/field contexts
-	 * 
+	 *
 	 * PW 2.6+
-	 * 
+	 *
 	 * @param Field $field
 	 * @return array
-	 * 
+	 *
 	 */
 	public function ___getConfigAllowContext($field)
 	{
@@ -175,6 +175,6 @@ class InputfieldPDF extends InputfieldFile implements InputfieldItemList
 
 		return array_merge($fieldNames, array(
 			'adminThumbs'
-		)); 
+		));
 	}
 }

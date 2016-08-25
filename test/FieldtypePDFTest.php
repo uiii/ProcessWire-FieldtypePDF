@@ -26,7 +26,7 @@
 
 /**
  * PHPUnit test for FieldtypePDF ProcessWire module
- * 
+ *
  * @backupGlobals disabled
  */
 class FieldtypePDFTest extends PHPUnit_Framework_TestCase
@@ -82,7 +82,7 @@ class FieldtypePDFTest extends PHPUnit_Framework_TestCase
 		$field->type = wire('modules')->get(self::FIELDTYPE_MODULE_NAME);
 		$field->save();
 
-		$template = wire('templates')->get('home');	
+		$template = wire('templates')->get('home');
 		$template->fieldgroup->add($field);
 		$template->save();
 
@@ -121,9 +121,9 @@ class FieldtypePDFTest extends PHPUnit_Framework_TestCase
 		// images have the same size
 		$this->assertEquals($generatedImage->getimagewidth(), $testImage->getimagewidth());
 		$this->assertEquals($generatedImage->getimageheight(), $testImage->getimageheight());
- 		
-		// images differ lesser than 0.1%
-		$this->assertLessThan(0.001, $result = $generatedImage->compareimages($testImage, Imagick::METRIC_MEANABSOLUTEERROR)[1]);
+
+		// images differ lesser than 0.15%
+		$this->assertLessThan(0.0015, $result = $generatedImage->compareimages($testImage, Imagick::METRIC_MEANABSOLUTEERROR)[1]);
 
 		return $pdfFiles;
 	}
@@ -152,10 +152,10 @@ class FieldtypePDFTest extends PHPUnit_Framework_TestCase
 		// images have the same size
 		$this->assertEquals($generatedImage->getimagewidth(), $testImage->getimagewidth());
 		$this->assertEquals($generatedImage->getimageheight(), $testImage->getimageheight());
- 		
-		// images differ lesser than 0.1%
-		$this->assertLessThan(0.001, $result = $generatedImage->compareimages($testImage, Imagick::METRIC_MEANABSOLUTEERROR)[1]);
-		
+
+		// images differ lesser than 0.15%
+		$this->assertLessThan(0.0015, $result = $generatedImage->compareimages($testImage, Imagick::METRIC_MEANABSOLUTEERROR)[1]);
+
 		return $pdfFiles;
 	}
 

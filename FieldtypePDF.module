@@ -34,16 +34,19 @@ class FieldtypePDF extends FieldtypeFile implements ConfigurableModule
 		'fallbackMode' => false
 	);
 
-	public static function getModuleInfo() 
+	public static function getModuleInfo()
 	{
 		return array(
 			'version' => 110,
 			'title' => __('PDF with thumbnail', __FILE__),
-			'summary' => __('Field that stores one or more pdf files allowing thumbnail creation.', __FILE__),
+			'summary' => __('Field that stores one or more PDF files allowing thumbnail creation.', __FILE__),
 			'href' => 'http://modules.processwire.com/modules/fieldtype-pdf',
 			'author' => 'Richard Jedlička',
 			'installs' => 'InputfieldPDF',
-			'autoload' => true
+			'autoload' => true,
+			'requires' => array(
+				'ProcessWire<3.0'
+			)
 		);
 	}
 
@@ -56,7 +59,7 @@ class FieldtypePDF extends FieldtypeFile implements ConfigurableModule
 			if (is_file($filename)) {
 				require_once $filename;
 			}
-		});		
+		});
 	}
 
 	public function ___install()
@@ -70,23 +73,23 @@ class FieldtypePDF extends FieldtypeFile implements ConfigurableModule
 	{
 		if($key === 'converterImagickOptions' && is_string($value)) {
 			$value = explode("\n", $value);
-		} 
+		}
 
-		return parent::set($key, $value); 
+		return parent::set($key, $value);
 	}
 
 	public function getBlankValue(Page $page, Field $field)
 	{
 		$pagePDFs = new PagePDFs($page);
-		$pagePDFs->setField($field); 
-		$pagePDFs->setTrackChanges(true); 
+		$pagePDFs->setField($field);
+		$pagePDFs->setTrackChanges(true);
 
-		return $pagePDFs; 
+		return $pagePDFs;
 	}
 
 	protected function getBlankPagefile(Pagefiles $pagefiles, $filename)
 	{
-		return new PagePDF($pagefiles, $filename); 
+		return new PagePDF($pagefiles, $filename);
 	}
 
 	protected function getDefaultFileExtensions()
@@ -109,43 +112,43 @@ class FieldtypePDF extends FieldtypeFile implements ConfigurableModule
 		$thumbnailFieldset->label = $this->_('PDF to image converter');
 		$thumbnailFieldset->description = $this->_('Options used when creating images from PDF files.');
 
-		$formatField = $this->modules->get('InputfieldText'); 
-		$formatField->attr('name', 'converterFormat'); 
-		$formatField->attr('value', $field->converterFormat ?: $converterOptions['format']); 
-		$formatField->label = $this->_('Image format'); 
+		$formatField = $this->modules->get('InputfieldText');
+		$formatField->attr('name', 'converterFormat');
+		$formatField->attr('value', $field->converterFormat ?: $converterOptions['format']);
+		$formatField->label = $this->_('Image format');
 		$formatField->description = $this->_('Format used when creating the image (recomeneded are JPEG or PNG). Don\'t forget to check the file extension.');
 		$url = 'http://www.imagemagick.org/script/formats.php#supported';
 		$formatField->notes = $this->_("For supported formats see [$url]($url)");
-		$formatField->required = true; 
-		$thumbnailFieldset->add($formatField); 
+		$formatField->required = true;
+		$thumbnailFieldset->add($formatField);
 
-		$extensionField = $this->modules->get('InputfieldText'); 
-		$extensionField->attr('name', 'imageExtenstion'); 
-		$extensionField->attr('value', $field->imageExtension ?: PagePDF::$defaultImageExtension); 
-		$extensionField->label = $this->_('File extension'); 
+		$extensionField = $this->modules->get('InputfieldText');
+		$extensionField->attr('name', 'imageExtenstion');
+		$extensionField->attr('value', $field->imageExtension ?: PagePDF::$defaultImageExtension);
+		$extensionField->label = $this->_('File extension');
 		$extensionField->description = $this->_('Sould correspond the image format.');
-		$extensionField->required = true; 
-		$thumbnailFieldset->add($extensionField); 
+		$extensionField->required = true;
+		$thumbnailFieldset->add($extensionField);
 
 		if (! $this->fallbackMode) {
-			$backgroundField = $this->modules->get('InputfieldText'); 
-			$backgroundField->attr('name', 'converterBackground'); 
-			$backgroundField->attr('value', $field->converterBackground ?: $converterOptions['background']); 
-			$backgroundField->label = $this->_('Image background'); 
+			$backgroundField = $this->modules->get('InputfieldText');
+			$backgroundField->attr('name', 'converterBackground');
+			$backgroundField->attr('value', $field->converterBackground ?: $converterOptions['background']);
+			$backgroundField->label = $this->_('Image background');
 			$backgroundField->description = $this->_('Color used as a background for transparent PDFs. Enter \'transparent\' if you don\'t want the background to be set. Default color is white.');
 			$url = 'http://www.imagemagick.org/script/color.php';
 			$backgroundField->notes = $this->_("For supported colors see [$url]($url)");
-			$thumbnailFieldset->add($backgroundField); 
+			$thumbnailFieldset->add($backgroundField);
 
 			$imagickFieldset = $this->modules->get('InputfieldFieldset');
 			$imagickFieldset->label = $this->_('ImageMagick settings (advanced)');
-			$imagickFieldset->collapsed = Inputfield::collapsedYes; 
+			$imagickFieldset->collapsed = Inputfield::collapsedYes;
 			$imagickFieldset->description = $this->_('Settings set to the ImageMagick instance before reading the PDF file. **Change this only if you know what you are doing.**');
 
-			$resolutionField = $this->modules->get('InputfieldText'); 
-			$resolutionField->attr('name', 'converterResolution'); 
-			$resolutionField->attr('value', $field->converterResolution ?: $converterOptions['resolution']); 
-			$resolutionField->label = $this->_('density'); 
+			$resolutionField = $this->modules->get('InputfieldText');
+			$resolutionField->attr('name', 'converterResolution');
+			$resolutionField->attr('value', $field->converterResolution ?: $converterOptions['resolution']);
+			$resolutionField->label = $this->_('density');
 			$url = 'http://www.imagemagick.org/script/command-line-options.php#density';
 			$resolutionField->notes = $this->_("see [$url]($url)");
 
@@ -166,7 +169,7 @@ class FieldtypePDF extends FieldtypeFile implements ConfigurableModule
 					}
 				}
 			}
-			
+
 			$colorspaceField->attr('value', $field->converterColorspace === null ? $converterOptions['colorspace'] : $field->converterColorspace);
 
 			if (! PDFConverter::isColorspaceSupported()) {
@@ -176,20 +179,20 @@ class FieldtypePDF extends FieldtypeFile implements ConfigurableModule
 			}
 
 			$optionsField = $this->modules->get('InputfieldTextarea');
-			$optionsField->attr('name', 'converterImagickOptions'); 
-			$optionsField->attr('rows', 3); 
+			$optionsField->attr('name', 'converterImagickOptions');
+			$optionsField->attr('rows', 3);
 			$optionsField->label = $this->_('Options');
 			$optionsField->description = $this->_('One definition per line (key=value).');
 			$url = 'http://www.imagemagick.org/script/command-line-options.php#define';
 			$optionsField->notes = $this->_("See [$url]($url)");
 
-			$optionsField->attr('value', $field->converterImagickOptions ?: implode("\n", $converterOptions['imagickOptions'])); 
+			$optionsField->attr('value', $field->converterImagickOptions ?: implode("\n", $converterOptions['imagickOptions']));
 
-			$imagickFieldset->append($resolutionField); 
+			$imagickFieldset->append($resolutionField);
 			$imagickFieldset->append($colorspaceField);
 			$imagickFieldset->append($optionsField);
 
-			$thumbnailFieldset->add($imagickFieldset); 
+			$thumbnailFieldset->add($imagickFieldset);
 		} else {
 			$thumbnailFieldset->notes = $this->_(
 				'**Fallback mode is ON:** This will produce low quality images and some field type options won\'t be available, but may work where normal mode doesn\'t.' .
@@ -222,4 +225,3 @@ class FieldtypePDF extends FieldtypeFile implements ConfigurableModule
 		return $inputfields;
 	}
 }
-

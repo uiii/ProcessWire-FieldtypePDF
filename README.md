@@ -15,7 +15,7 @@ Module for ProcessWire CMS allowing you to easily generate images from the PDF f
 
 ## Requirements
 
-- Processwire 2.4+
+- Processwire >=2.5 <3.0
 - ImageMagick PHP extension
 - Ghostscript
 
@@ -50,16 +50,16 @@ Method accepts two optional parameters. First is the `$page`, which specifies th
 The second is `$options` parameter, which is an array of options to override the options set in administration.
 ```php
 $options = array(
-  'suffix' => array('suffix1', 'suffix2'), // suffixes used in filename
-  'forceNew' => false, // if TRUE the image is regenerated if already exists
-  'format' => 'JPEG', // image format
-  'extension' => 'jpg', // image file extension
-  'background' => '#FFFFFF', // background color used when the PDF has transparent background
-  'resolution' => '300x300', // resolution used when reading the PDF
-  'colorspace' => Imagick::COLORSPACE_RGB, // colorspace used when reading the PDF
-  'imagickOptions' => array( // ImageMagick options
-    'pdf:use-cropbox=true'
-  ),
+	'suffix' => array('suffix1', 'suffix2'), // suffixes used in filename
+	'forceNew' => false, // if TRUE the image is regenerated if already exists
+	'format' => 'JPEG', // image format
+	'extension' => 'jpg', // image file extension
+	'background' => '#FFFFFF', // background color used when the PDF has transparent background
+	'resolution' => '300x300', // resolution used when reading the PDF
+	'colorspace' => Imagick::COLORSPACE_RGB, // colorspace used when reading the PDF
+	'imagickOptions' => array( // ImageMagick options
+		'pdf:use-cropbox=true'
+	),
 )
 ```
 
@@ -67,7 +67,7 @@ For each combinations of *page* and *suffixes* there will be one image. The gene
 
 ## API documentation
 
-See http://uiii.github.io/ProcessWire-FieldtypePDF/dev. 
+See http://uiii.github.io/ProcessWire-FieldtypePDF/dev.
 
 Or generate your own into *doc* directory:
 ```
@@ -78,10 +78,40 @@ apigen generate -d doc
 
 > **DO NOT** run the tests against the production site. They modify the fields, templates and pages as they need, so can potentially damage your site!
 
-Prepare the PW testing installation and export the `PW_PATH` environment variable containing the path to the root of the installation. Copy the module sources in the `$PW_PATH/site/modules/FieldtypePDF` directory and run from here:
+Prepare the PW testing installation and export the `PW_PATH` environment variable containing the path to the root of that installation. Copy the module sources in the `$PW_PATH/site/modules/FieldtypePDF` directory.
+
+Install required packages:
 ```
-phpunit
+composer install
 ```
+
+Run the tests
+```
+./vendor/bin/phpunit
+```
+
+### Test multiple ProcessWire versions (automatically)
+
+You can also automatically test against multiple ProcessWire versions. There is a script `test/run.sh` for it. It will install each version of ProcessWire (by configuration) and run the tests against it.
+
+1. Install reuquired packages:
+
+	```
+	composer install
+	```
+1. First you have to create config file:
+
+	```
+	cp test/config.sh.example test/config.sh
+	```
+2. Edit `test/config.sh` file and fill the values
+3. Run tests:
+
+	```
+	sh test/run.sh
+	```
+
+> **WARNING**: The script creates and drops a database for each PW installation, so be careful and change the `DB_NAME` in config file if necessary.
 
 ## Upgrading from 1.0.1 and lower
 
@@ -110,9 +140,9 @@ To fix that, you need to made some changes in ImageMagick delegate files. Detail
 
 ### GhostScript exceptions occured
 
-If you got some *GhostScript* exceptions when generating image, update *GhostScript* and *ImageMagick* to the latest versions. 
+If you got some *GhostScript* exceptions when generating image, update *GhostScript* and *ImageMagick* to the latest versions.
 
-If you can't, you can use the **fallback mode**. Turn it on in the module's settings. 
+If you can't, you can use the **fallback mode**. Turn it on in the module's settings.
 > Be aware of that this will produce low quality images and most of the field type options won't be abvailable.
 
 ## Changelog

@@ -74,20 +74,20 @@ class PagePDF extends Pagefile
 
 	/**
 	 * Convert PDF to image
-	 * 
+	 *
 	 * This generates one image for each combinations of $page and $options['suffix'].
 	 * If the file already exists it isn't regenerated until $options['forceNew'] is TRUE.
-	 * 
+	 *
 	 * @param int $page Number of PDF's page (indexed from 0) to be converted to image
 	 * @param type $options
-	 * 
+	 *
 	 * Available options are:
-	 * 
+	 *
 	 * - sufix (string[]) - Suffixes to be used in image's filename
 	 * - forceNew (boolean) - Whether to overwrite the image if already exists
-	 * 
+	 *
 	 * Accepts also converter options, see {@link FieldtypePDF\PDFConverter::setOptions}.
-	 * 
+	 *
 	 * @return Pageimage
 	 */
 	public function ___toImage($page = 0, $options = array())
@@ -112,24 +112,24 @@ class PagePDF extends Pagefile
 		$suffixStr = '';
 		if(!empty($options['suffix'])) {
 			$suffix = is_array($options['suffix']) ? $options['suffix'] : array($options['suffix']);
-			sort($suffix); 
+			sort($suffix);
 			foreach($suffix as $key => $s) {
-				$s = strtolower($this->wire('sanitizer')->fieldName($s)); 
-				if(empty($s)) unset($suffix[$key]); 
-					else $suffix[$key] = $s; 
+				$s = strtolower($this->wire('sanitizer')->fieldName($s));
+				if(empty($s)) unset($suffix[$key]);
+					else $suffix[$key] = $s;
 			}
-			if(count($suffix)) $suffixStr = '-' . implode('-', $suffix); 
+			if(count($suffix)) $suffixStr = '-' . implode('-', $suffix);
 		}
 
- 		// e.g. myfile.pdf -> myfile-page2.jpg
+		// e.g. myfile.pdf -> myfile-page2.jpg
 		$basename = sprintf('%s%s.%s',
 			basename($this->basename(), "." . $this->ext()),
 			$suffixStr,
 			$options['extension']
 		);
 
-		$filename = $this->pagefiles->path() . $basename; 
-		$exists = file_exists($filename); 
+		$filename = $this->pagefiles->path() . $basename;
+		$exists = file_exists($filename);
 
 		if(! $exists || $options['forceNew']) {
 			if($exists && $options['forceNew']) {
@@ -161,7 +161,7 @@ class PagePDF extends Pagefile
 
 	/**
 	 * Test whether $basename is image generated from this PDF
-	 * 
+	 *
 	 * @param type $basename
 	 * @return boolean
 	 */
@@ -170,7 +170,7 @@ class PagePDF extends Pagefile
 		$imageName = basename($basename);
 		$originalName = basename($this->basename, "." . $this->ext());  // excludes extension
 
-		$re = '/^' 
+		$re = '/^'
 			. $originalName // myfile
 			. '(?:-([-_a-zA-Z0-9]+))?' // -suffix1 or -suffix1-suffix2, etc.
 			. '\.[^.]+' // .jpg
@@ -191,21 +191,21 @@ class PagePDF extends Pagefile
 	 */
 	public function getImages()
 	{
-		$images = new Pageimages($this->pagefiles->page); 
-		$dir = new DirectoryIterator($this->pagefiles->path); 
+		$images = new Pageimages($this->pagefiles->page);
+		$dir = new DirectoryIterator($this->pagefiles->path);
 
 		foreach($dir as $file) {
-			if($file->isDir() || $file->isDot()) continue; 			
-			if(! $this->isImageOfThis($file->getFilename())) continue; 
-			$images->add($file->getFilename()); 
+			if($file->isDir() || $file->isDot()) continue;
+			if(! $this->isImageOfThis($file->getFilename())) continue;
+			$images->add($file->getFilename());
 		}
 
-		return $images; 
+		return $images;
 	}
 
 	/**
 	 * Remove all generated images.
-	 * 
+	 *
 	 * @return void
 	 */
 	public function removeImages()
@@ -216,14 +216,14 @@ class PagePDF extends Pagefile
 			$image->unlink();
 		}
 
-		return $this;	
+		return $this;
 	}
 
 	/**
 	 * Delete the physical file on disk associated with this PDF.
-	 * 
+	 *
 	 * Unlinks also all generated images.
-	 * 
+	 *
 	 * @return bool
 	 */
 	public function unlink()
@@ -275,4 +275,3 @@ class PagePDF extends Pagefile
 		$this->removeImages();
 	}
 }
-

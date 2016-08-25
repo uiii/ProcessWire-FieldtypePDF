@@ -1,0 +1,16 @@
+# DB admin user which can create a database
+DB_USER=
+DB_PASS=
+
+# DB connection
+DB_HOST=localhost
+DB_PORT=3306
+
+# DB name for PW test installation
+DB_NAME="pw_fieldtypepdf_test"
+
+# PW tags to test against
+TEST_TAGS=("2.5" "2.6")
+
+# test against PW master
+TEST_MASTER=1
