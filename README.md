@@ -99,13 +99,13 @@ You can also automatically test against multiple ProcessWire versions. There is 
 	```
 	composer install
 	```
-1. First you have to create config file:
+2. Create a config file:
 
 	```
 	cp test/config.sh.example test/config.sh
 	```
-2. Edit `test/config.sh` file and fill the values
-3. Run tests:
+3. Edit `test/config.sh` file and fill the values
+4. Run the tests:
 
 	```
 	sh test/run.sh
