@@ -44,9 +44,7 @@ class FieldtypePDF extends FieldtypeFile implements ConfigurableModule
 			'author' => 'Richard Jedlička',
 			'installs' => 'InputfieldPDF',
 			'autoload' => true,
-			'requires' => array(
-				'ProcessWire<3.0'
-			)
+			'requires' => 'ProcessWire<3.0'
 		);
 	}
 
