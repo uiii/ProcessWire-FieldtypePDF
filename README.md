@@ -1,4 +1,4 @@
-# PDF Fieldtype/Inputfield 1.1.0
+# PDF Fieldtype/Inputfield 1.1.1
 
 > This is a version compatible only with **ProcessWire 2.x**  
 > For ProcessWire 3.x version see [devns](https://github.com/uiii/ProcessWire-FieldtypePDF/tree/devns) branch
