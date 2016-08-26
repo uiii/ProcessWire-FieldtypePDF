@@ -1,5 +1,8 @@
 # PDF Fieldtype/Inputfield 1.1.0
 
+> This is a version compatible only with **ProcessWire 2.x**  
+> For ProcessWire 3.x version see [devns](https://github.com/uiii/ProcessWire-FieldtypePDF/tree/devns) branch
+
 Module for ProcessWire CMS allowing you to easily generate images from the PDF files embedded to the site.
 
 1. [Requirements](#requirements)
@@ -59,7 +62,7 @@ $options = array(
 	'colorspace' => Imagick::COLORSPACE_RGB, // colorspace used when reading the PDF
 	'imagickOptions' => array( // ImageMagick options
 		'pdf:use-cropbox=true'
-	),
+	)
 )
 ```
 
@@ -123,7 +126,7 @@ Instructions for replacing the deprecated methods:
 
 ```php
 $image = $page->pdf->toImage();
-$image->size($widht, $height);
+$image->size($width, $height);
 ```
 
 - `isThumbnail($basename)` replace with `isImageOfThis($basename)`
