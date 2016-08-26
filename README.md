@@ -150,6 +150,10 @@ If you can't, you can use the **fallback mode**. Turn it on in the module's sett
 
 ## Changelog
 
+### 1.1.1
+
+- Fix module's installation by classname
+
 ### 1.1.0
 
 - API change: New method `toImage`. Previous `thumbnail` and related methods are marked as deprecated
