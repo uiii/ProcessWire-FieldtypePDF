@@ -70,7 +70,7 @@ For each combinations of *page* and *suffixes* there will be one image. The gene
 
 ## API documentation
 
-See http://uiii.github.io/ProcessWire-FieldtypePDF/dev.
+See http://uiii.github.io/ProcessWire-FieldtypePDF/master.
 
 Or generate your own into *doc* directory:
 ```
