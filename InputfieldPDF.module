@@ -5,7 +5,7 @@ use FieldtypePDF\PagePDF;
 /*
  * The MIT License
  *
- * Copyright 2015 Richard Jedlička <jedlicka.r@gmail.com> (http://uiii.cz)
+ * Copyright 2016 Richard Jedlička <jedlicka.r@gmail.com> (http://uiii.cz)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,7 +31,7 @@ class InputfieldPDF extends InputfieldFile implements InputfieldItemList
 	public static function getModuleInfo()
 	{
 		return array(
-			'version' => 111,
+			'version' => 112,
 			'title' => __('PDF files with thumbnails', __FILE__), // Module Title
 			'summary' => __('One or more PDF files upload with thumbnails', __FILE__), // Module Summary
 			'href' => 'http://modules.processwire.com/modules/fieldtype-pdf',

@@ -3,7 +3,7 @@
 /*
  * The MIT License
  *
- * Copyright 2015 Richard Jedlička <jedlicka.r@gmail.com> (http://uiii.cz)
+ * Copyright 2016 Richard Jedlička <jedlicka.r@gmail.com> (http://uiii.cz)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,8 +28,8 @@ namespace FieldtypePDF;
 
 use DirectoryIterator;
 use Exception;
+
 use Pagefile;
-use Pagefiles;
 use Pageimage;
 use Pageimages;
 

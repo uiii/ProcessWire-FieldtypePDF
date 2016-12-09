@@ -1,9 +1,9 @@
 <?php
 
-/* 
+/*
  * The MIT License
  *
- * Copyright 2015 Richard Jedlička (http://uiii.cz).
+ * Copyright 2016 Richard Jedlička (http://uiii.cz).
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal

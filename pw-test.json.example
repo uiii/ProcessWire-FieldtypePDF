@@ -1,0 +1,76 @@
+{
+	/**
+	* Directory where are stored files needed for testing
+	* (e.g ProcessWire installation, ...).
+	*
+	* Path is relative to the this file's parent directory.
+	*/
+	"tmpDir": ".pw-test",
+
+	/**
+	* Database connection parameters
+	*
+	* They are used to create the database
+	* for ProcessWire installation, so the user
+	* must have the priviledges to create a database.
+	*/
+	"db": {
+		"host": "localhost",
+		"port": 3306,
+		"user": "root",
+		"pass": "",
+		"name": "pw_test"
+	},
+
+	/**
+	* List of ProcessWire tags/versions used for testing.
+	*
+	* It doesn't have to be exact version number.
+	*
+	* For each version will be found latest matching
+	* existing tag/version. (e.g. 3.0 -> 3.0.42)
+	*/
+	"testTags": ["2.5", "2.6", "2.7", "3.0"],
+
+	/**
+	* Copy tested project source files to specified
+	* destinations in ProcessWire installation.
+	*
+	* Destination paths are relative to ProcessWire
+	* installation root.
+	*
+	* Source paths are relative to this file's parent directory.
+	*
+	* Sources can be either array or a single string.
+	* If array of sources are specified, the thestination
+	* is considered a directory where all source are copied.
+	*
+	* If single string source is specified, one to one copy is used.
+	*/
+	"copySources": {
+		"site/modules/FieldtypePDF": [
+			"FieldtypePDF",
+			"InputfieldPDF.css",
+			"InputfieldPDF.module"
+		],
+		"site/modules/FieldtypePDF/FieldtypePDF.module": "FieldtypePDF.module"
+	},
+
+	/**
+	* Command to run to perform tests against a ProcessWire instance.
+	*
+	* Path to ProcessWire installation will be in PW_PATH environment variable.
+	*/
+	"testCmd": "vendor/bin/phpunit",
+
+	/**
+	* Test runner can wait and ask the user what to do
+	* after tests against a ProcessWire instance are completed.
+	*
+	* Possible values are:
+	* 'never' - never wait (default)
+	* 'onFailure' - wait when tests failed
+	* 'always' - always wait
+	*/
+	"waitAfterTests": "never"
+}

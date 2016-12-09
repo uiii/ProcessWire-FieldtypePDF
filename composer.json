@@ -1,5 +1,8 @@
 {
     "name": "uiii/processwire-fieldtypepdf",
+    "description": "Fieldtype/Inputfield module for ProcessWire allowing easy generation of thumbnails of the PDF files",
+    "keywords": ["processwire", "module"],
+    "type": "pw-module",
     "license": "MIT",
     "authors": [
         {
@@ -7,9 +10,11 @@
             "email": "jedlicka.r@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "hari/pw-module": "^1.0"
+    },
     "require-dev": {
-        "phpunit/phpunit": "4.5",
-        "wireshell/wireshell": "^0.6.0"
+        "phpunit/phpunit": "^5.7",
+        "uiii/pw-test": "dev-master"
 	}
 }

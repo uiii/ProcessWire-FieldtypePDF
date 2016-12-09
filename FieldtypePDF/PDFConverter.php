@@ -3,7 +3,7 @@
 /*
  * The MIT License
  *
- * Copyright 2015 Richard Jedlička <jedlicka.r@gmail.com> (http://uiii.cz)
+ * Copyright 2016 Richard Jedlička <jedlicka.r@gmail.com> (http://uiii.cz)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -61,7 +61,7 @@ class PDFConverter
 
 	/**
 	 * Check if colorspace is supported by ImageMagick.
-	 * 
+	 *
 	 * @return bool
 	 */
 	public static function isColorspaceSupported()
@@ -71,7 +71,7 @@ class PDFConverter
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param string $pdfFilename PDF file to be converted
 	 * @param array $options Converter options (Optional)
 	 * @see setOptions()
@@ -84,11 +84,11 @@ class PDFConverter
 
 	/**
 	 * Set converter options
-	 * 
+	 *
 	 * @param array $options
-	 * 
+	 *
 	 * Available options are:
-	 * 
+	 *
 	 * - format (string) - format of the image
 	 * - extension (string) - image file extension
 	 * - background (string) - image background (used when the PDF's background is transparent),
@@ -97,7 +97,7 @@ class PDFConverter
 	 * - colorspace (int) - colorspace used when reading the PDF (Imagick::COLORSPACE_* constant)
 	 * - imagickOptions (string[]) - ImageMagick options (each option in format 'key=value')
 	 * - fallbackMode (bool) - Fallback mode (produces low quality images, but may work where normal mode don't)
-	 * 
+	 *
 	 * For converter default options see {@link $defaultOptions}
 	 */
 	public function setOptions(array $options)
@@ -132,7 +132,7 @@ class PDFConverter
 
 	/**
 	 * Get converter options
-	 * 
+	 *
 	 * @return array
 	 */
 	public function getOptions()
@@ -142,7 +142,7 @@ class PDFConverter
 
 	/**
 	 * Convert PDF to image specified by filename.
-	 * 
+	 *
 	 * @param int $page Number of PDF's page to be converted to image (indexed from 0)
 	 * @param string $imageFilename Filename of output image
 	 */

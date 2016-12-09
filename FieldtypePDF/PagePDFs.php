@@ -3,7 +3,7 @@
 /*
  * The MIT License
  *
- * Copyright 2015 Richard Jedlička <jedlicka.r@gmail.com> (http://uiii.cz)
+ * Copyright 2016 Richard Jedlička <jedlicka.r@gmail.com> (http://uiii.cz)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,10 +31,10 @@ use Pagefiles;
 /**
  * PagePDFs are a collection of PagePDF objects.
  *
- * Typically a PagePDFs object will be associated with a specific field attached to a Page. 
+ * Typically a PagePDFs object will be associated with a specific field attached to a Page.
  * There may be multiple instances of PagePDFs attached to a given Page (depending on what fields are in it's fieldgroup).
  */
-class PagePDFs extends Pagefiles 
+class PagePDFs extends Pagefiles
 {
 	public function isValidItem($item)
 	{
@@ -43,15 +43,15 @@ class PagePDFs extends Pagefiles
 
 	public function makeBlankItem()
 	{
-		return new PagePDF($this, ''); 
+		return new PagePDF($this, '');
 	}
 
 	public function add($item)
 	{
 		if(is_string($item)) {
-			$item = new PagePDF($this, $item); 
+			$item = new PagePDF($this, $item);
 		}
 
-		return parent::add($item); 
+		return parent::add($item);
 	}
 }

@@ -3,7 +3,7 @@
 /*
  * The MIT License
  *
- * Copyright 2015 Richard Jedlička <jedlicka.r@gmail.com> (http://uiii.cz)
+ * Copyright 2016 Richard Jedlička <jedlicka.r@gmail.com> (http://uiii.cz)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -37,14 +37,13 @@ class FieldtypePDF extends FieldtypeFile implements ConfigurableModule
 	public static function getModuleInfo()
 	{
 		return array(
-			'version' => 111,
+			'version' => 112,
 			'title' => __('PDF with thumbnail', __FILE__),
 			'summary' => __('Field that stores one or more PDF files allowing thumbnail creation.', __FILE__),
 			'href' => 'http://modules.processwire.com/modules/fieldtype-pdf',
 			'author' => 'Richard Jedlička',
 			'installs' => 'InputfieldPDF',
-			'autoload' => true,
-			'requires' => 'ProcessWire<3.0'
+			'autoload' => true
 		);
 	}
 
@@ -64,6 +63,28 @@ class FieldtypePDF extends FieldtypeFile implements ConfigurableModule
 	{
 		if(! class_exists('Imagick')) {
 			throw new WireException(__('FieldtypePDF module requires the ImageMagick PHP extension.'));
+		}
+
+		// HACK: Make module PW 3.x compatible.
+		// Fix `use` statements in files with FieldtypePDF
+		// namespace bacause PW's FileCompiler doesn't compile
+		// files which already have a namespace.
+		if (preg_match("/^3/", $this->config->version)) {
+			$dir = new \DirectoryIterator(__DIR__ . '/FieldtypePDF');
+
+			foreach($dir as $file) {
+				if($file->isDir() || $file->isDot()) continue;
+
+				$content = file_get_contents($file->getPathname());
+
+				$content = preg_replace(
+					"/use (Page(?:files?|images?))/",
+					"use ProcessWire\\\\$1",
+					$content
+				);
+
+				file_put_contents($file->getPathname(), $content);
+			}
 		}
 	}
 
@@ -155,7 +176,7 @@ class FieldtypePDF extends FieldtypeFile implements ConfigurableModule
 			$colorspaceField->label = $this->_('Color space');
 			$colorspaceField->description = $this->_('Leave empty if you don\'t want to set.');
 
-			$imagickReflection = new ReflectionClass('Imagick');
+			$imagickReflection = new \ReflectionClass('Imagick');
 			foreach ($imagickReflection->getConstants() as $name => $value) {
 				if (preg_match('/^COLORSPACE_([^_]+)$/', $name, $matches)) {
 					$name = $matches[1];
@@ -172,7 +193,7 @@ class FieldtypePDF extends FieldtypeFile implements ConfigurableModule
 
 			if (! PDFConverter::isColorspaceSupported()) {
 				$colorspaceField->attr('disabled', true);
-				$colorspaceField->addOption(Imagick::COLORSPACE_UNDEFINED, 'not supported');
+				$colorspaceField->addOption(\Imagick::COLORSPACE_UNDEFINED, 'not supported');
 				$colorspaceField->notes = $this->_('Supported since ImageMagick version 6.5.7');
 			}
 

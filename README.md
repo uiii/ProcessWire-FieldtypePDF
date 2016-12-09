@@ -1,7 +1,4 @@
-# PDF Fieldtype/Inputfield 1.1.1
-
-> This is a version compatible only with **ProcessWire 2.x**  
-> For ProcessWire 3.x version see [devns](https://github.com/uiii/ProcessWire-FieldtypePDF/tree/devns) branch
+# PDF Fieldtype/Inputfield 1.1.2
 
 Module for ProcessWire CMS allowing you to easily generate images from the PDF files embedded to the site.
 
@@ -18,13 +15,22 @@ Module for ProcessWire CMS allowing you to easily generate images from the PDF f
 
 ## Requirements
 
-- Processwire >=2.5 <3.0
+- Processwire 2.5+
 - ImageMagick PHP extension
 - Ghostscript
 
 ## Installation
 
 [How to install or uninstall modules](http://modules.processwire.com/install-uninstall/).
+
+### Composer
+In your ProcessWire installation root run:
+```
+composer require uiii/processwire-fieldtypepdf
+```
+Login to your ProcessWire admin and go to *Modules* > *Refresh* and install the module.
+
+If you want to read more about ProcessWire and Composer visit [https://processwire.com/blog/posts/composer-google-calendars-and-processwire/](https://processwire.com/blog/posts/composer-google-calendars-and-processwire/)
 
 ## How to use
 
@@ -95,26 +101,31 @@ Run the tests
 
 ### Test multiple ProcessWire versions (automatically)
 
-You can also automatically test against multiple ProcessWire versions. There is a script `test/run.sh` for it. It will install each version of ProcessWire (by configuration) and run the tests against it.
+You can also automatically test against multiple ProcessWire versions.
+It uses [PW-Test](https://github.com/uiii/pw-test) tool for it.
 
 1. Install reuquired packages:
 
 	```
 	composer install
 	```
+
 2. Create a config file:
 
 	```
-	cp test/config.sh.example test/config.sh
+	cp pw-test.json.example pw-test.json
 	```
-3. Edit `test/config.sh` file and fill the values
+
+3. Edit `pw-test.json` file and fill the values
+
+> **WARNING**: The tool creates and drops a database for each PW installation,
+> so configure the `db` connection parameters carefuly.
+
 4. Run the tests:
 
 	```
-	sh test/run.sh
+	vendor/bin/pw-test
 	```
-
-> **WARNING**: The script creates and drops a database for each PW installation, so be careful and change the `DB_NAME` in config file if necessary.
 
 ## Upgrading from 1.0.1 and lower
 
@@ -149,6 +160,12 @@ If you can't, you can use the **fallback mode**. Turn it on in the module's sett
 > Be aware of that this will produce low quality images and most of the field type options won't be abvailable.
 
 ## Changelog
+
+### 1.1.2
+
+- Added ProcessWire 3.x support
+- Module is installable via Composer
+- Use [PW-Test](https://github.com/uiii/pw-test) for testing against multiple versions of ProcessWire
 
 ### 1.1.1
 
