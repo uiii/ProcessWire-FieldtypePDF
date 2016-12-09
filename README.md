@@ -1,6 +1,6 @@
 # PDF Fieldtype/Inputfield 1.1.2
 
-Module for ProcessWire CMS allowing you to easily generate images from the PDF files embedded to the site.
+Module for [ProcessWire CMS](https://processwire.com) allowing you to easily generate images from the PDF files embedded to the site.
 
 1. [Requirements](#requirements)
 2. [Installation](#installation)
@@ -23,7 +23,7 @@ Module for ProcessWire CMS allowing you to easily generate images from the PDF f
 
 [How to install or uninstall modules](http://modules.processwire.com/install-uninstall/).
 
-### Composer
+### Via Composer
 In your ProcessWire installation root run:
 ```
 composer require uiii/processwire-fieldtypepdf
@@ -76,9 +76,7 @@ For each combinations of *page* and *suffixes* there will be one image. The gene
 
 ## API documentation
 
-See http://uiii.github.io/ProcessWire-FieldtypePDF/master.
-
-Or generate your own into *doc* directory:
+Generate into *doc* directory:
 ```
 apigen generate -d doc
 ```
@@ -118,8 +116,9 @@ It uses [PW-Test](https://github.com/uiii/pw-test) tool for it.
 
 3. Edit `pw-test.json` file and fill the values
 
-> **WARNING**: The tool creates and drops a database for each PW installation,
-> so configure the `db` connection parameters carefuly.
+> **WARNING**: The tool creates and drops a database
+> for each ProcessWire installation, so configure
+> the `db` connection parameters carefully.
 
 4. Run the tests:
 
