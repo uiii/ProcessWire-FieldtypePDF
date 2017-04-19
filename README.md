@@ -1,4 +1,6 @@
-# PDF Fieldtype/Inputfield 1.1.2
+# PDF Fieldtype/Inputfield
+
+[![Packagist](https://img.shields.io/packagist/v/uiii/processwire-fieldtypepdf.svg)](https://packagist.org/packages/uiii/processwire-fieldtypepdf)
 
 Module for [ProcessWire CMS](https://processwire.com) allowing you to easily generate images from the PDF files embedded to the site.
 
@@ -100,7 +102,7 @@ Run the tests
 ### Test multiple ProcessWire versions (automatically)
 
 You can also automatically test against multiple ProcessWire versions.
-It uses [PW-Test](https://github.com/uiii/pw-test) tool for it.
+It uses [Tense](https://github.com/uiii/tense) tool for it.
 
 1. Install reuquired packages:
 
@@ -108,23 +110,15 @@ It uses [PW-Test](https://github.com/uiii/pw-test) tool for it.
 	composer install
 	```
 
-2. Create a config file:
+2. Run the tests:
 
 	```
-	cp pw-test.json.example pw-test.json
+	vendor/bin/tense run
 	```
 
-3. Edit `pw-test.json` file and fill the values
-
-> **WARNING**: The tool creates and drops a database
-> for each ProcessWire installation, so configure
-> the `db` connection parameters carefully.
-
-4. Run the tests:
-
-	```
-	vendor/bin/pw-test
-	```
+> **WARNING**: The tool will ask you for database connection parameters.
+> Configure the `db` connection parameters carefully because it
+> creates and drops a database for each ProcessWire installation.
 
 ## Upgrading from 1.0.1 and lower
 
@@ -159,6 +153,10 @@ If you can't, you can use the **fallback mode**. Turn it on in the module's sett
 > Be aware of that this will produce low quality images and most of the field type options won't be abvailable.
 
 ## Changelog
+
+### 1.1.3
+
+- Use [Tense](https://github.com/uiii/tense) for testing against multiple versions of ProcessWire
 
 ### 1.1.2
 
