@@ -24,8 +24,6 @@
  * THE SOFTWARE.
  */
 
-var_dump($config);
-
 if (function_exists("\\ProcessWire\\wire")) {
 	// ProcesWire 3.x
 	class_alias("\\ProcessWire\\Field", "Field");

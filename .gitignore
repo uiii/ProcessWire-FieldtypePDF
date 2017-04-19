@@ -1,7 +1,9 @@
+.tense
+.ampp
 /nbproject
 /vendor
 /doc
 /test/log
 /test/config.sh
 composer.lock
-pw-test.json
+tense.local.yml

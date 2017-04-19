@@ -1,0 +1,9 @@
+testTags:
+    - '2.5'
+    - '2.6'
+    - '2.7'
+    - '3.0'
+testCmd: vendor/bin/phpunit
+copySources:
+    - { destination: site/modules/FieldtypePDF, source: [FieldtypePDF, InputfieldPDF.css, InputfieldPDF.module] }
+    - { destination: site/modules/FieldtypePDF/FieldtypePDF.module, source: FieldtypePDF.module }

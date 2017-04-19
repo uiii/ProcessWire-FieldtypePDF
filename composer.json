@@ -11,10 +11,10 @@
         }
     ],
     "require": {
-        "hari/pw-module": "^1.0"
+        "hari/pw-module": "^1.0",
+        "uiii/tense": "^1.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^5.7",
-        "uiii/pw-test": "dev-master"
+        "phpunit/phpunit": "^5.7"
 	}
 }
