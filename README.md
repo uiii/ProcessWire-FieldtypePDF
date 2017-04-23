@@ -151,35 +151,3 @@ If you got some *GhostScript* exceptions when generating image, update *GhostScr
 
 If you can't, you can use the **fallback mode**. Turn it on in the module's settings.
 > Be aware of that this will produce low quality images and most of the field type options won't be abvailable.
-
-## Changelog
-
-### 1.1.3
-
-- Use [Tense](https://github.com/uiii/tense) for testing against multiple versions of ProcessWire
-
-### 1.1.2
-
-- Added ProcessWire 3.x support
-- Module is installable via Composer
-- Use [PW-Test](https://github.com/uiii/pw-test) for testing against multiple versions of ProcessWire
-
-### 1.1.1
-
-- Fix module's installation by classname
-
-### 1.1.0
-
-- API change: New method `toImage`. Previous `thumbnail` and related methods are marked as deprecated
-- PDF to image converter is now configurable in admin [issue [#7](https://github.com/uiii/ProcessWire-FieldtypePDF/issues/7)]
-- You can specify which page of the PDF's the image is generated from [issue [#3](https://github.com/uiii/ProcessWire-FieldtypePDF/issues/3)]
-- Fix bugs [issue [#4](https://github.com/uiii/ProcessWire-FieldtypePDF/issues/4), [#6](https://github.com/uiii/ProcessWire-FieldtypePDF/issues/6)]
-- Add ApiGen config for API documentation generation
-- Add PHPUnit tests
-- Add license (MIT)
-
-### 1.0.1
-
-- Set important ImageMagick settings before conversion  [issue [#1](https://github.com/uiii/ProcessWire-FieldtypePDF/issues/1)]
-- Added module requirements check [issue [#2](https://github.com/uiii/ProcessWire-FieldtypePDF/issues/2)]
-- Updated README
