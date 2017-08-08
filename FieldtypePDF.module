@@ -65,27 +65,12 @@ class FieldtypePDF extends FieldtypeFile implements ConfigurableModule
 			throw new WireException(__('FieldtypePDF module requires the ImageMagick PHP extension.'));
 		}
 
-		// HACK: Make module PW 3.x compatible.
-		// Fix `use` statements in files with FieldtypePDF
-		// namespace bacause PW's FileCompiler doesn't compile
-		// files which already have a namespace.
-		if (preg_match("/^3/", $this->config->version)) {
-			$dir = new \DirectoryIterator(__DIR__ . '/FieldtypePDF');
+		$this->fixNamespaces();
+	}
 
-			foreach($dir as $file) {
-				if($file->isDir() || $file->isDot()) continue;
-
-				$content = file_get_contents($file->getPathname());
-
-				$content = preg_replace(
-					"/use (Page(?:files?|images?))/",
-					"use ProcessWire\\\\$1",
-					$content
-				);
-
-				file_put_contents($file->getPathname(), $content);
-			}
-		}
+	public function ___upgrade($fromVersion, $toVersion)
+	{
+		$this->fixNamespaces();
 	}
 
 	public function set($key, $value)
@@ -242,5 +227,30 @@ class FieldtypePDF extends FieldtypeFile implements ConfigurableModule
 		$inputfields->add($field);
 
 		return $inputfields;
+	}
+
+	protected function fixNamespaces()
+	{
+		// HACK: Make module PW 3.x compatible.
+		// Fix `use` statements in files with FieldtypePDF
+		// namespace bacause PW's FileCompiler doesn't compile
+		// files which already have a namespace.
+		if (preg_match("/^3/", $this->config->version)) {
+			$dir = new \DirectoryIterator(__DIR__ . '/FieldtypePDF');
+
+			foreach($dir as $file) {
+				if($file->isDir() || $file->isDot()) continue;
+
+				$content = file_get_contents($file->getPathname());
+
+				$content = preg_replace(
+					"/use (Page(?:files?|images?))/",
+					"use ProcessWire\\\\$1",
+					$content
+				);
+
+				file_put_contents($file->getPathname(), $content);
+			}
+		}
 	}
 }
