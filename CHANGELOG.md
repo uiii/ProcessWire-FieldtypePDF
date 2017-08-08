@@ -1,4 +1,4 @@
-## Unreleased
+## 1.1.4 (2017-08-08)
 
 ### Fixed
 - Fixed module upgrading on PW 3.x [[issue #12](https://github.com/uiii/ProcessWire-FieldtypePDF/issues/12)]
