@@ -253,7 +253,7 @@ class FieldtypePDF extends FieldtypeFile implements ConfigurableModule
 				file_put_contents($file->getPathname(), $content);
 			}
 
-			file_put_contents($controlFile);
+			file_put_contents($controlFile, '');
 		}
 	}
 }
