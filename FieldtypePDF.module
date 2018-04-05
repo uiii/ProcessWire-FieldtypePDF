@@ -49,6 +49,8 @@ class FieldtypePDF extends FieldtypeFile implements ConfigurableModule
 
 	public function init()
 	{
+		$this->fixNamespaces();
+
 		spl_autoload_register(function($classname) {
 			$classname = ltrim($classname, '\\');
 			$filename = sprintf('%s/%s.php', __DIR__, str_replace('\\', DIRECTORY_SEPARATOR, $classname));
@@ -64,13 +66,6 @@ class FieldtypePDF extends FieldtypeFile implements ConfigurableModule
 		if(! class_exists('Imagick')) {
 			throw new WireException(__('FieldtypePDF module requires the ImageMagick PHP extension.'));
 		}
-
-		$this->fixNamespaces();
-	}
-
-	public function ___upgrade($fromVersion, $toVersion)
-	{
-		$this->fixNamespaces();
 	}
 
 	public function set($key, $value)
@@ -231,6 +226,12 @@ class FieldtypePDF extends FieldtypeFile implements ConfigurableModule
 
 	protected function fixNamespaces()
 	{
+		$controlFile = __DIR__ . '/.namespace-fixed';
+
+		if (file_exists($controlFile)) {
+			return;
+		}
+
 		// HACK: Make module PW 3.x compatible.
 		// Fix `use` statements in files with FieldtypePDF
 		// namespace bacause PW's FileCompiler doesn't compile
@@ -251,6 +252,8 @@ class FieldtypePDF extends FieldtypeFile implements ConfigurableModule
 
 				file_put_contents($file->getPathname(), $content);
 			}
+
+			file_put_contents($controlFile);
 		}
 	}
 }
