@@ -1,3 +1,8 @@
+## 1.1.5 (2018-04-05)
+
+### Fixed
+- Making PW 3.x namespace fixing reliable.
+
 ## 1.1.4 (2017-08-08)
 
 ### Fixed
