@@ -1,3 +1,10 @@
+## 1.2.0 (2020-30-12)
+
+Use version 1.x for backward compatibility with ProcessWire 2.x
+
+### Changes
+- Remove PW 3.x related things
+
 ## 1.1.5 (2018-04-05)
 
 ### Fixed

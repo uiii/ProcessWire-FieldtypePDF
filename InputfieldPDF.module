@@ -31,12 +31,15 @@ class InputfieldPDF extends InputfieldFile implements InputfieldItemList
 	public static function getModuleInfo()
 	{
 		return array(
-			'version' => 115,
+			'version' => 120,
 			'title' => __('PDF files with thumbnails', __FILE__), // Module Title
 			'summary' => __('One or more PDF files upload with thumbnails', __FILE__), // Module Summary
 			'href' => 'http://modules.processwire.com/modules/fieldtype-pdf',
 			'author' => "Richard Jedlička",
-			'requires' => array("FieldtypePDF")
+			'requires' => array(
+				'ProcessWire<=3.0.0',
+				'FieldtypePDF'
+			)
 		);
 	}
 
