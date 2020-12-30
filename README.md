@@ -21,7 +21,7 @@ Module for [ProcessWire CMS](https://processwire.com) allowing you to easily gen
 - ImageMagick PHP extension
 - Ghostscript
 
-> For ProcessWire 2.x support use version 1.x, maintained by [pw-2](https://github.com/uiii/ProcessWire-FieldtypePDF/tree/pw-2) branch.
+> For ProcessWire 2.x support use version 1.x, maintained in [pw-2](https://github.com/uiii/ProcessWire-FieldtypePDF/tree/pw-2) branch.
 
 ## Installation
 
