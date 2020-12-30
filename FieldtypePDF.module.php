@@ -24,6 +24,8 @@
  * THE SOFTWARE.
  */
 
+namespace ProcessWire;
+
 use FieldtypePDF\PagePDF;
 use FieldtypePDF\PagePDFs;
 use FieldtypePDF\PDFConverter;
@@ -43,14 +45,15 @@ class FieldtypePDF extends FieldtypeFile implements ConfigurableModule
 			'href' => 'http://modules.processwire.com/modules/fieldtype-pdf',
 			'author' => 'Richard Jedlička',
 			'installs' => 'InputfieldPDF',
-			'autoload' => true
+			'autoload' => true,
+			'requires' => array(
+				'ProcessWire>=3.0.0'
+			)
 		);
 	}
 
 	public function init()
 	{
-		$this->fixNamespaces();
-
 		spl_autoload_register(function($classname) {
 			$classname = ltrim($classname, '\\');
 			$filename = sprintf('%s/%s.php', __DIR__, str_replace('\\', DIRECTORY_SEPARATOR, $classname));
@@ -107,10 +110,12 @@ class FieldtypePDF extends FieldtypeFile implements ConfigurableModule
 		// add fields for thumbnail creation settings
 		$converterOptions = PDFConverter::$defaultOptions;
 
+		/** @var InputfieldFieldset */
 		$thumbnailFieldset = $this->modules->get('InputfieldFieldset');
 		$thumbnailFieldset->label = $this->_('PDF to image converter');
 		$thumbnailFieldset->description = $this->_('Options used when creating images from PDF files.');
 
+		/** @var InputfieldText */
 		$formatField = $this->modules->get('InputfieldText');
 		$formatField->attr('name', 'converterFormat');
 		$formatField->attr('value', $field->converterFormat ?: $converterOptions['format']);
@@ -121,6 +126,7 @@ class FieldtypePDF extends FieldtypeFile implements ConfigurableModule
 		$formatField->required = true;
 		$thumbnailFieldset->add($formatField);
 
+		/** @var InputfieldText */
 		$extensionField = $this->modules->get('InputfieldText');
 		$extensionField->attr('name', 'imageExtenstion');
 		$extensionField->attr('value', $field->imageExtension ?: PagePDF::$defaultImageExtension);
@@ -130,6 +136,7 @@ class FieldtypePDF extends FieldtypeFile implements ConfigurableModule
 		$thumbnailFieldset->add($extensionField);
 
 		if (! $this->fallbackMode) {
+			/** @var InputfieldText */
 			$backgroundField = $this->modules->get('InputfieldText');
 			$backgroundField->attr('name', 'converterBackground');
 			$backgroundField->attr('value', $field->converterBackground ?: $converterOptions['background']);
@@ -139,11 +146,13 @@ class FieldtypePDF extends FieldtypeFile implements ConfigurableModule
 			$backgroundField->notes = $this->_("For supported colors see [$url]($url)");
 			$thumbnailFieldset->add($backgroundField);
 
+			/** @var InputfieldFieldset */
 			$imagickFieldset = $this->modules->get('InputfieldFieldset');
 			$imagickFieldset->label = $this->_('ImageMagick settings (advanced)');
 			$imagickFieldset->collapsed = Inputfield::collapsedYes;
 			$imagickFieldset->description = $this->_('Settings set to the ImageMagick instance before reading the PDF file. **Change this only if you know what you are doing.**');
 
+			/** @var InputfieldText */
 			$resolutionField = $this->modules->get('InputfieldText');
 			$resolutionField->attr('name', 'converterResolution');
 			$resolutionField->attr('value', $field->converterResolution ?: $converterOptions['resolution']);
@@ -151,6 +160,7 @@ class FieldtypePDF extends FieldtypeFile implements ConfigurableModule
 			$url = 'http://www.imagemagick.org/script/command-line-options.php#density';
 			$resolutionField->notes = $this->_("see [$url]($url)");
 
+			/** @var InputfieldSelect */
 			$colorspaceField = $this->modules->get('InputfieldSelect');
 			$colorspaceField->attr('name', 'converterColorspace');
 			$colorspaceField->label = $this->_('Color space');
@@ -177,6 +187,7 @@ class FieldtypePDF extends FieldtypeFile implements ConfigurableModule
 				$colorspaceField->notes = $this->_('Supported since ImageMagick version 6.5.7');
 			}
 
+			/** @var InputfieldTextArea */
 			$optionsField = $this->modules->get('InputfieldTextarea');
 			$optionsField->attr('name', 'converterImagickOptions');
 			$optionsField->attr('rows', 3);
@@ -222,38 +233,5 @@ class FieldtypePDF extends FieldtypeFile implements ConfigurableModule
 		$inputfields->add($field);
 
 		return $inputfields;
-	}
-
-	protected function fixNamespaces()
-	{
-		$controlFile = __DIR__ . '/.namespace-fixed';
-
-		if (file_exists($controlFile)) {
-			return;
-		}
-
-		// HACK: Make module PW 3.x compatible.
-		// Fix `use` statements in files with FieldtypePDF
-		// namespace bacause PW's FileCompiler doesn't compile
-		// files which already have a namespace.
-		if (preg_match("/^3/", $this->config->version)) {
-			$dir = new \DirectoryIterator(__DIR__ . '/FieldtypePDF');
-
-			foreach($dir as $file) {
-				if($file->isDir() || $file->isDot()) continue;
-
-				$content = file_get_contents($file->getPathname());
-
-				$content = preg_replace(
-					"/use (Page(?:files?|images?))/",
-					"use ProcessWire\\\\$1",
-					$content
-				);
-
-				file_put_contents($file->getPathname(), $content);
-			}
-
-			file_put_contents($controlFile, '');
-		}
 	}
 }

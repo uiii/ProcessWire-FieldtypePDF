@@ -1,7 +1,5 @@
 <?php
 
-use FieldtypePDF\PagePDF;
-
 /*
  * The MIT License
  *
@@ -26,17 +24,24 @@ use FieldtypePDF\PagePDF;
  * THE SOFTWARE.
  */
 
+namespace ProcessWire;
+
+use FieldtypePDF\PagePDF;
+
 class InputfieldPDF extends InputfieldFile implements InputfieldItemList
 {
 	public static function getModuleInfo()
 	{
 		return array(
-			'version' => 115,
+			'version' => 200,
 			'title' => __('PDF files with thumbnails', __FILE__), // Module Title
 			'summary' => __('One or more PDF files upload with thumbnails', __FILE__), // Module Summary
 			'href' => 'http://modules.processwire.com/modules/fieldtype-pdf',
 			'author' => "Richard Jedlička",
-			'requires' => array("FieldtypePDF")
+			'requires' => array(
+				'ProcessWire>=3.0.0',
+				'FieldtypePDF'
+			)
 		);
 	}
 
@@ -59,6 +64,7 @@ class InputfieldPDF extends InputfieldFile implements InputfieldItemList
 		$thumb = $pdf->toImage();
 		$thumbInfo = array();
 
+		/** @var InputfieldImage */
 		$inputfieldImage = $this->modules->get('InputfieldImage');
 		if (method_exists($inputfieldImage, 'getAdminThumb')) { // PW 2.6+
 			$inputfieldImage->set('adminThumbs', true);
@@ -148,6 +154,7 @@ class InputfieldPDF extends InputfieldFile implements InputfieldItemList
 	{
 		$inputfields = parent::___getConfigInputfields();
 
+		/** @var InputfieldCheckbox */
 		$field = $this->modules->get('InputfieldCheckbox');
 		$field->attr('name', 'adminThumbs');
 		$field->attr('value', 1);

@@ -29,9 +29,9 @@ namespace FieldtypePDF;
 use DirectoryIterator;
 use Exception;
 
-use Pagefile;
-use Pageimage;
-use Pageimages;
+use ProcessWire\Pagefile;
+use ProcessWire\Pageimage;
+use ProcessWire\Pageimages;
 
 /**
  * Represents a single PDF file item attached to a page, typically via a FieldtypePDF field.

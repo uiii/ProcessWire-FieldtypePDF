@@ -26,7 +26,7 @@
 
 namespace FieldtypePDF;
 
-use Pagefiles;
+use ProcessWire\Pagefiles;
 
 /**
  * PagePDFs are a collection of PagePDF objects.

@@ -24,14 +24,9 @@
  * THE SOFTWARE.
  */
 
-if (function_exists("\\ProcessWire\\wire")) {
-	// ProcesWire 3.x
-	class_alias("\\ProcessWire\\Field", "Field");
-	class_alias("\\ProcessWire\\Pageimage", "Pageimage");
-	function wire() {
-		return call_user_func_array("\\ProcessWire\\wire", func_get_args());
-	}
-}
+use ProcessWire\Field;
+use ProcessWire\Pageimage;
+use ProcessWire\wire;
 
 /**
  * PHPUnit test for FieldtypePDF ProcessWire module
@@ -50,7 +45,7 @@ class FieldtypePDFTest extends PHPUnit_Framework_TestCase
 	{
 		self::clean();
 
-		$modules = wire('modules');
+		$modules = \ProcessWire\wire('modules');
 
 		if ($modules->isInstalled(self::FIELDTYPE_MODULE_NAME)) {
 			error(sprintf('Module \'%s\' must not be installed', self::FIELDTYPE_MODULE_NAME));

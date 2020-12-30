@@ -13,13 +13,15 @@ Module for [ProcessWire CMS](https://processwire.com) allowing you to easily gen
 5. [Tests](#tests)
 6. [Upgrading from 1.0.1 and lower](#upgrading-from-101-and-lower)
 7. [Troubleshooting](#troubleshooting)
-8. [Changelog](#changelog)
+8. [Changelog](CHANGELOG.md)
 
 ## Requirements
 
-- Processwire 2.5+
+- Processwire 3+
 - ImageMagick PHP extension
 - Ghostscript
+
+> For ProcessWire 2.x support use version 1.x, maintained by [pw-2](https://github.com/uiii/ProcessWire-FieldtypePDF/tree/pw-2) branch.
 
 ## Installation
 

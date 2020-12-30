@@ -15,6 +15,7 @@
         "uiii/tense": "^1.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^5.7"
+        "phpunit/phpunit": "^5.7",
+        "processwire/processwire": "3.0.34"
 	}
 }
