@@ -39,7 +39,7 @@ class FieldtypePDF extends FieldtypeFile implements ConfigurableModule
 	public static function getModuleInfo()
 	{
 		return array(
-			'version' => 115,
+			'version' => 201,
 			'title' => __('PDF with thumbnail', __FILE__),
 			'summary' => __('Field that stores one or more PDF files allowing thumbnail creation.', __FILE__),
 			'href' => 'http://modules.processwire.com/modules/fieldtype-pdf',
